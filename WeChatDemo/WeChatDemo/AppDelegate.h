@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+/** 用户登录 */
+- (void)xmppUserLogin;
 
 @end
 

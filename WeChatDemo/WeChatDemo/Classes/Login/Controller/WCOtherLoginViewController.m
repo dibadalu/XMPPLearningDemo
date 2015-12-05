@@ -7,6 +7,7 @@
 //
 
 #import "WCOtherLoginViewController.h"
+#import "AppDelegate.h"
 
 @interface WCOtherLoginViewController ()
 
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+- (IBAction)loginBtnClick:(id)sender;
 
 
 @end
@@ -41,6 +43,32 @@
     
     
 }
+
+#pragma mark - 登录
+- (IBAction)loginBtnClick:(id)sender {
+    
+    /*
+     * 官方的登录实现
+     * 1.把用户名和密码放在沙盒里
+     * 2.调用AppDelegate的一个connect连接服务器并登录
+     */
+    
+    NSString *userName = self.userField.text;
+    NSString *pwd = self.pwdField.text;
+    
+    //保存到沙盒——偏好设置
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:userName forKey:@"userName"];
+    [defaults setObject:pwd forKey:@"pwd"];
+    [defaults synchronize];
+    
+    //用户登录
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    [app xmppUserLogin];
+    
+}
+
+
 
 
 

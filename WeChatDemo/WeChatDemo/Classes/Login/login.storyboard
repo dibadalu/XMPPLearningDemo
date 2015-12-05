@@ -137,7 +137,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWV-sY-bzN" userLabel="其他方式登录框容器">
                                 <rect key="frame" x="100" y="130" width="400" height="200"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BKt-YB-kan" userLabel="用户名">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zhangsan" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BKt-YB-kan" userLabel="用户名">
                                         <rect key="frame" x="0.0" y="8" width="400" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="8Mb-wj-2HM"/>
@@ -145,7 +145,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NEJ-uk-iAp" userLabel="密码">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NEJ-uk-iAp" userLabel="密码">
                                         <rect key="frame" x="0.0" y="68" width="400" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="1lz-Lo-FS3"/>
@@ -161,6 +161,9 @@
                                         <state key="normal" title="登录">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="loginBtnClick:" destination="mXE-rJ-yZn" eventType="touchUpInside" id="xH2-zK-OV6"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
