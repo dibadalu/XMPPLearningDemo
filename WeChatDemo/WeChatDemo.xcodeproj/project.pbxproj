@@ -1681,6 +1681,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WeChatDemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -1689,6 +1690,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = WeChatDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1703,6 +1705,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WeChatDemo/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
@@ -1711,6 +1714,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = WeChatDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1774,6 +1778,7 @@
 				54723E6E1C12A6740032C084 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		54723E6F1C12A6740032C084 /* Build configuration list for PBXNativeTarget "WeChatDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -1782,6 +1787,7 @@
 				54723E711C12A6740032C084 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
