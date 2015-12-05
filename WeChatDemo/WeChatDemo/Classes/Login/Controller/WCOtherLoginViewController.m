@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 - (IBAction)loginBtnClick:(id)sender;
+- (IBAction)cancel:(id)sender;
 
 
 @end
@@ -28,6 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"其它方式登录";
     
     //判断当前设备的类型，改变左右两边约束的距离
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -82,6 +84,11 @@
     
 }
 
+- (IBAction)cancel:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - 处理请求结果
 - (void)handleResultType:(XMPPResultType)type{
 
@@ -121,9 +128,12 @@
     self.view.window.rootViewController = storyboard.instantiateInitialViewController;
 }
 
+
 - (void)dealloc{
     WCLog(@"%s",__func__);
 }
+
+
 
 
 @end

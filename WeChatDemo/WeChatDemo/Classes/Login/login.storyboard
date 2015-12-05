@@ -109,7 +109,7 @@
         <!--其他方式登录Nav-->
         <scene sceneID="u0f-2N-n0c">
             <objects>
-                <navigationController id="qkJ-iy-0c8" userLabel="其他方式登录Nav" sceneMemberID="viewController">
+                <navigationController id="qkJ-iy-0c8" userLabel="其他方式登录Nav" customClass="WCNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wGm-Rj-VKe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -188,7 +188,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vWV-sY-bzN" secondAttribute="trailing" constant="84" id="dBf-Xr-Cln"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="其他方式登录" id="mS7-y5-KFd"/>
+                    <navigationItem key="navigationItem" id="mS7-y5-KFd">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="X53-zZ-6jS">
+                            <connections>
+                                <action selector="cancel:" destination="mXE-rJ-yZn" id="eyy-HX-q6h"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="leftLayoutConstraint" destination="PJq-sS-hQI" id="YTj-jt-UMf"/>
                         <outlet property="loginBtn" destination="Haf-XG-RJE" id="mjD-m2-xM9"/>

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "XMPPFramework.h"
+#import "WCNavigationController.h"
 
 /**
  *  在代理类实现登录
@@ -41,8 +42,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //程序一启动就连接到主机
-//    [self connectToHost];
+    //设置导航栏的背景
+    [WCNavigationController setupNavTheme];
     
     return YES;
 }
@@ -166,7 +167,7 @@
 
 #pragma mark - puplic method
 #pragma mark - 注销
-- (void)logout{
+- (void)xmppUserLogout{
     
     //1.发送“离线”消息
     XMPPPresence *offline = [XMPPPresence presenceWithType:@"unavailable"];
@@ -174,6 +175,10 @@
     
     //2.与服务器断开连接
     [_xmppStream disconnect];
+    
+    //3.回到登录界面
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"login" bundle:nil];
+    self.window.rootViewController = storyboard.instantiateInitialViewController;
     
 }
 
