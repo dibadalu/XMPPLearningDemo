@@ -15,6 +15,9 @@
 		543C1A621C12B8C500B208B4 /* UIStoryboard+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A5A1C12B8C500B208B4 /* UIStoryboard+WF.m */; };
 		543C1A631C12B8C500B208B4 /* UITextField+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A5C1C12B8C500B208B4 /* UITextField+WF.m */; };
 		543C1A641C12B8C500B208B4 /* UIView+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A5E1C12B8C500B208B4 /* UIView+WF.m */; };
+		545BAFDC1C13038D00601509 /* MBProgressHUD+HM.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BAFD81C13038D00601509 /* MBProgressHUD+HM.m */; };
+		545BAFDD1C13038D00601509 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 545BAFD91C13038D00601509 /* MBProgressHUD.bundle */; };
+		545BAFDE1C13038D00601509 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BAFDB1C13038D00601509 /* MBProgressHUD.m */; };
 		54723E4F1C12A6740032C084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E4E1C12A6740032C084 /* main.m */; };
 		54723E521C12A6740032C084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E511C12A6740032C084 /* AppDelegate.m */; };
 		54723E551C12A6740032C084 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E541C12A6740032C084 /* ViewController.m */; };
@@ -181,6 +184,11 @@
 		543C1A5C1C12B8C500B208B4 /* UITextField+WF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WF.m"; sourceTree = "<group>"; };
 		543C1A5D1C12B8C500B208B4 /* UIView+WF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WF.h"; sourceTree = "<group>"; };
 		543C1A5E1C12B8C500B208B4 /* UIView+WF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WF.m"; sourceTree = "<group>"; };
+		545BAFD71C13038D00601509 /* MBProgressHUD+HM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+HM.h"; sourceTree = "<group>"; };
+		545BAFD81C13038D00601509 /* MBProgressHUD+HM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+HM.m"; sourceTree = "<group>"; };
+		545BAFD91C13038D00601509 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		545BAFDA1C13038D00601509 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		545BAFDB1C13038D00601509 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54723E491C12A6740032C084 /* WeChatDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54723E4D1C12A6740032C084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54723E4E1C12A6740032C084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -540,6 +548,18 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		545BAFD61C13038D00601509 /* MBProgessHUD */ = {
+			isa = PBXGroup;
+			children = (
+				545BAFD71C13038D00601509 /* MBProgressHUD+HM.h */,
+				545BAFD81C13038D00601509 /* MBProgressHUD+HM.m */,
+				545BAFD91C13038D00601509 /* MBProgressHUD.bundle */,
+				545BAFDA1C13038D00601509 /* MBProgressHUD.h */,
+				545BAFDB1C13038D00601509 /* MBProgressHUD.m */,
+			);
+			path = MBProgessHUD;
+			sourceTree = "<group>";
+		};
 		54723E401C12A6740032C084 = {
 			isa = PBXGroup;
 			children = (
@@ -614,6 +634,7 @@
 		54723E731C12A74A0032C084 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				545BAFD61C13038D00601509 /* MBProgessHUD */,
 				543C1A511C12B8C500B208B4 /* Category */,
 				54723E741C12A74A0032C084 /* XMPP */,
 			);
@@ -1490,6 +1511,7 @@
 				54723E5D1C12A6740032C084 /* LaunchScreen.xib in Resources */,
 				5472403B1C12A74A0032C084 /* README.txt in Resources */,
 				54723E5A1C12A6740032C084 /* Images.xcassets in Resources */,
+				545BAFDD1C13038D00601509 /* MBProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,6 +1536,7 @@
 				54723FD71C12A74A0032C084 /* XMPPProcessOne.m in Sources */,
 				5472400F1C12A74A0032C084 /* XMPPTransports.m in Sources */,
 				54723FCE1C12A74A0032C084 /* XMPPJID.m in Sources */,
+				545BAFDE1C13038D00601509 /* MBProgressHUD.m in Sources */,
 				54723FCA1C12A74A0032C084 /* NSNumber+XMPP.m in Sources */,
 				547240211C12A74A0032C084 /* XMPPAutoPing.m in Sources */,
 				547240151C12A74A0032C084 /* XMPPCapabilities.m in Sources */,
@@ -1613,6 +1636,7 @@
 				5472401D1C12A74A0032C084 /* XMPPPresence+XEP_0172.m in Sources */,
 				54723FE51C12A74A0032C084 /* XMPPJabberRPCModule.m in Sources */,
 				5472400C1C12A74A0032C084 /* XMPPDateTimeProfiles.m in Sources */,
+				545BAFDC1C13038D00601509 /* MBProgressHUD+HM.m in Sources */,
 				5472400A1C12A74A0032C084 /* XMPPMessage+XEP_0066.m in Sources */,
 				54723FCD1C12A74A0032C084 /* XMPPIQ.m in Sources */,
 				547240061C12A74A0032C084 /* XMPPIQ+XEP_0060.m in Sources */,

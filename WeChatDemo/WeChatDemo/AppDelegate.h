@@ -8,12 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    XMPPResultTypeLoginSuccess,
+    XMPPResultTypeLoginFailure,
+    XMPPResultTypeNetErr
+}XMPPResultType;
+
+//设置block的别名
+typedef void (^XMPPResultBlock)(XMPPResultType type);//XMPP请求结果的block
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 /** 用户登录 */
-- (void)xmppUserLogin;
+- (void)xmppUserLogin:(XMPPResultBlock)resultBlock;
+
+
+
+
 
 @end
 
