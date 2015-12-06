@@ -10,6 +10,7 @@
 		5432BFBB1C1331FF004FC63A /* WCMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5432BFBA1C1331FF004FC63A /* WCMeViewController.m */; };
 		5432BFBE1C1409EF004FC63A /* WCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5432BFBD1C1409EF004FC63A /* WCLoginViewController.m */; };
 		5432BFC31C140BBD004FC63A /* WCUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5432BFC21C140BBD004FC63A /* WCUserInfo.m */; };
+		5432BFC61C141BBE004FC63A /* WCBaseLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5432BFC51C141BBE004FC63A /* WCBaseLoginViewController.m */; };
 		543C1A4B1C12AE9E00B208B4 /* login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 543C1A4A1C12AE9E00B208B4 /* login.storyboard */; };
 		543C1A501C12B65900B208B4 /* WCOtherLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A4F1C12B65900B208B4 /* WCOtherLoginViewController.m */; };
 		543C1A5F1C12B8C500B208B4 /* UIButton+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A541C12B8C500B208B4 /* UIButton+WF.m */; };
@@ -179,6 +180,8 @@
 		5432BFC01C140B70004FC63A /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		5432BFC11C140BBD004FC63A /* WCUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCUserInfo.h; sourceTree = "<group>"; };
 		5432BFC21C140BBD004FC63A /* WCUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCUserInfo.m; sourceTree = "<group>"; };
+		5432BFC41C141BBE004FC63A /* WCBaseLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCBaseLoginViewController.h; sourceTree = "<group>"; };
+		5432BFC51C141BBE004FC63A /* WCBaseLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCBaseLoginViewController.m; sourceTree = "<group>"; };
 		543C1A4A1C12AE9E00B208B4 /* login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = login.storyboard; sourceTree = "<group>"; };
 		543C1A4E1C12B65900B208B4 /* WCOtherLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCOtherLoginViewController.h; sourceTree = "<group>"; };
 		543C1A4F1C12B65900B208B4 /* WCOtherLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCOtherLoginViewController.m; sourceTree = "<group>"; };
@@ -559,6 +562,8 @@
 				543C1A4F1C12B65900B208B4 /* WCOtherLoginViewController.m */,
 				5432BFBC1C1409EF004FC63A /* WCLoginViewController.h */,
 				5432BFBD1C1409EF004FC63A /* WCLoginViewController.m */,
+				5432BFC41C141BBE004FC63A /* WCBaseLoginViewController.h */,
+				5432BFC51C141BBE004FC63A /* WCBaseLoginViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1680,6 +1685,7 @@
 				547240101C12A74A0032C084 /* NSString+XEP_0106.m in Sources */,
 				54723FF51C12A74A0032C084 /* XMPPMUC.m in Sources */,
 				54723FD51C12A74A0032C084 /* XMPPCoreDataStorage.m in Sources */,
+				5432BFC61C141BBE004FC63A /* WCBaseLoginViewController.m in Sources */,
 				54723FC81C12A74A0032C084 /* XMPPXOAuth2Google.m in Sources */,
 				54723FCB1C12A74A0032C084 /* NSXMLElement+XMPP.m in Sources */,
 				5472403D1C12A74A0032C084 /* DDXMLDocument.m in Sources */,

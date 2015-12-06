@@ -1,5 +1,5 @@
 //
-//  WCLoginViewController.h
+//  WCBaseLoginViewController.h
 //  WeChatDemo
 //
 //  Created by 陈泽嘉 on 15/12/6.
@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WCBaseLoginViewController.h"
 
-@interface WCLoginViewController : WCBaseLoginViewController
+@interface WCBaseLoginViewController : UIViewController
+
+/** 登录:供子类调用 */
+- (void)login;
 
 @end

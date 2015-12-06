@@ -37,7 +37,12 @@
 
 - (IBAction)loginBtnClick:(id)sender {
     
+    //保存用户数据到userInfo单例
+    WCUserInfo *userInfo = [WCUserInfo sharedWCUserInfo];
+    userInfo.userName = self.userLabel.text;
+    userInfo.pwd = self.pwdField.text;
     
+    [super login];
 }
 
 
