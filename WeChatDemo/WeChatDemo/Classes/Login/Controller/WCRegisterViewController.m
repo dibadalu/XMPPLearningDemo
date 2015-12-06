@@ -20,6 +20,7 @@
 
 - (IBAction)registerBtnClick:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)textChange;
 
 @end
 
@@ -47,21 +48,71 @@
 
 - (IBAction)registerBtnClick:(id)sender {
     
+    //隐藏键盘
+    [self.view endEditing:YES];
+    
+    //0.判断用户输入的是否为手机号码
+    if (![self.userField isTelphoneNum]) {
+        [MBProgressHUD showError:@"请输入正确的手机号码" toView:self.view];
+        return;
+    }
+    
     //1.把用户注册的数据保存到单例
     WCUserInfo *userInfo = [WCUserInfo sharedWCUserInfo];
     userInfo.registerUserName = self.userField.text;
     userInfo.registerPwd = self.pwdField.text;
-    
+
     //2.调用AppDelegate的xmppRegister方法
     AppDelegate *app = [UIApplication sharedApplication].delegate;
     app.registerOperation = YES;//标识注册操作
+    //提示
+    [MBProgressHUD showMessage:@"正在注册中..." toView:self.view];
+    __weak typeof(self) weakSelf = self;
     [app xmppRegister:^(XMPPResultType type) {
-        
+        [weakSelf handleResultType:type];
     }];
+}
+
+#pragma mark - 处理注册结果
+- (void)handleResultType:(XMPPResultType)type{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //隐藏之前的提示
+        [MBProgressHUD hideHUDForView:self.view];
+        switch (type) {
+            case XMPPResultTypeRegisterSuccess:
+                [MBProgressHUD showError:@"注册成功" toView:self.view];
+                //回到上个控制器
+                [self dismissViewControllerAnimated:YES completion:nil];
+                //通知代理做事情
+                if ([self.delegate respondsToSelector:@selector(registerViewControllerDidFinishRegister)]) {
+                    [self.delegate registerViewControllerDidFinishRegister];
+                }
+                break;
+            case XMPPResultTypeRegisterFailure:
+                [MBProgressHUD showError:@"注册失败，用户名重复" toView:self.view];
+                break;
+            case XMPPResultTypeNetErr:
+                [MBProgressHUD showError:@"网络繁忙!" toView:self.view];
+                break;
+                
+        }
+    });
+    
 }
 
 - (IBAction)cancel:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)textChange {
+    
+    WCLog(@"text");
+    //设置注册按钮的可用状态
+//    BOOL enabled = (self.userField.text.length != 0 && self.pwdField.text.length != 0);
+    BOOL enabled = self.userField.hasText && self.pwdField.hasText ;
+    self.registerBtn.enabled = enabled;
+}
+
+
 @end

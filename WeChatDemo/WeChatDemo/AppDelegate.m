@@ -190,8 +190,10 @@
 #pragma mark - 注册成功
 - (void)xmppStreamDidRegister:(XMPPStream *)sender{
     WCLog(@"注册成功");
-    
-    
+    //注册成功，回调给注册控制器
+    if (_resultBlock) {
+        _resultBlock(XMPPResultTypeRegisterSuccess);
+    }
 }
 
 #pragma mark - 注册失败
@@ -200,6 +202,9 @@
     /*
      注册失败--<iq xmlns="jabber:client" type="error" to="dibadalu.local/6cda2d51"><query xmlns="jabber:iq:register"><username>12345678900</username><password>123456</password></query><error code="409" type="cancel"><conflict xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/></error></iq>
      */
+    if (_resultBlock) {
+        _resultBlock(XMPPResultTypeRegisterFailure);
+    }
 
 }
 

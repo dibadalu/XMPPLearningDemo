@@ -11,7 +11,9 @@
 typedef enum {
     XMPPResultTypeLoginSuccess,
     XMPPResultTypeLoginFailure,
-    XMPPResultTypeNetErr
+    XMPPResultTypeNetErr,
+    XMPPResultTypeRegisterSuccess,
+    XMPPResultTypeRegisterFailure
 }XMPPResultType;
 
 //设置block的别名

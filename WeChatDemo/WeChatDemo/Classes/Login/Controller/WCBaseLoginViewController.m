@@ -35,7 +35,7 @@
     //用户登录
     AppDelegate *app = [UIApplication sharedApplication].delegate;
     app.registerOperation = NO;
-#warning weak self弱引用
+#warning weak self弱引用,只有自己定义的block才需要弱引用
     __weak typeof(self) weakSelf = self;
     [app xmppUserLogin:^(XMPPResultType type) {
         //处理请求结果
