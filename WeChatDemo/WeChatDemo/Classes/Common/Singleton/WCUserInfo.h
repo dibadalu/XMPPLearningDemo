@@ -20,10 +20,17 @@ singleton_interface(WCUserInfo);
 /** 登录的状态 YES表示登录过，NO表示注销*/
 @property(nonatomic,assign) BOOL loginStatus;
 
+/** 注册的用户名 */
+@property(nonatomic,copy) NSString *registerUserName;
+/** 注册的密码 */
+@property(nonatomic,copy) NSString *registerPwd;
+
 /** 加载沙盒的用户数据 */
 - (void)loadUserInfoFromSanbox;
 
 /** 保存用户数据到沙盒 */
 - (void)saveUserInfoToSanbox;
+
+
 
 @end

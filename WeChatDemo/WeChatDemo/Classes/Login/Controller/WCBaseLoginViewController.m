@@ -34,6 +34,7 @@
     
     //用户登录
     AppDelegate *app = [UIApplication sharedApplication].delegate;
+    app.registerOperation = NO;
 #warning weak self弱引用
     __weak typeof(self) weakSelf = self;
     [app xmppUserLogin:^(XMPPResultType type) {

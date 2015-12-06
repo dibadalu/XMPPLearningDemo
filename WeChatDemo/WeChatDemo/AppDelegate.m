@@ -82,9 +82,14 @@
     
     //设置JID
     //resource：标识用户登录的客户端
-    
     //从userInfo单例获取用户名
-    NSString *user = [WCUserInfo sharedWCUserInfo].userName;
+    NSString *user = nil;
+    if (self.isRegisterOperation) {//注册
+        user = [WCUserInfo sharedWCUserInfo].registerUserName;
+    }else{//登录
+        user = [WCUserInfo sharedWCUserInfo].userName;
+    }
+    
     XMPPJID *myJID = [XMPPJID jidWithUser:user domain:@"dibadalu.local" resource:@"iphone"];
     _xmppStream.myJID = myJID;
     
@@ -131,9 +136,14 @@
     
     WCLog(@"与主机连接成功");
     
-    //主机连接成功后，发送密码进行授权
-    [self sendPwdToHost];
-    
+    if (self.isRegisterOperation) {//注册操作，发送注册的密码
+        NSString *pwd = [WCUserInfo sharedWCUserInfo].registerPwd;
+        [_xmppStream registerWithPassword:pwd error:nil];
+    }else{//登录操作
+        //主机连接成功后，发送登录的密码进行授权
+        [self sendPwdToHost];
+    }
+
 }
 
 #pragma mark - 与主机断开连接
@@ -149,7 +159,7 @@
     
 }
 
-#pragma mark - 授权成功
+#pragma mark - 授权成功（登录成功）
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender{
     
     WCLog(@"授权成功");
@@ -175,7 +185,22 @@
         _resultBlock(XMPPResultTypeLoginFailure);
     }
     
+}
+
+#pragma mark - 注册成功
+- (void)xmppStreamDidRegister:(XMPPStream *)sender{
+    WCLog(@"注册成功");
     
+    
+}
+
+#pragma mark - 注册失败
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error{
+    WCLog(@"注册失败--%@",error);
+    /*
+     注册失败--<iq xmlns="jabber:client" type="error" to="dibadalu.local/6cda2d51"><query xmlns="jabber:iq:register"><username>12345678900</username><password>123456</password></query><error code="409" type="cancel"><conflict xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/></error></iq>
+     */
+
 }
 
 #pragma mark - puplic method
@@ -212,8 +237,22 @@
     //如果以前连接过服务器，要断开
     [_xmppStream disconnect];
     
-    //连接主机，成功后发送密码
+    //连接主机，成功后发送“登录”的密码
     [self connectToHost];
+}
+
+#pragma mark - 用户注册
+- (void)xmppRegister:(XMPPResultBlock)resultBlock{
+    
+    //先把block存起来
+    _resultBlock = resultBlock;
+    
+    //如果以前连接过服务器，要断开
+    [_xmppStream disconnect];
+    
+    //连接主机，成功后发送“注册”的密码
+    [self connectToHost];
+    
 }
 
 @end
