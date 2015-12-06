@@ -52,19 +52,15 @@
     
     /*
      * 官方的登录实现
-     * 1.把用户名和密码放在沙盒里
+     * 1.把用户名和密码放在UserInfo的单例
      
      * 2.调用AppDelegate的一个connect连接服务器并登录
      */
     
-    NSString *userName = self.userField.text;
-    NSString *pwd = self.pwdField.text;
-    
-    //保存到沙盒——偏好设置
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:userName forKey:@"userName"];
-    [defaults setObject:pwd forKey:@"pwd"];
-    [defaults synchronize];
+#warning 把用户名和密码放在UserInfo的单例  
+    WCUserInfo *userInfo = [WCUserInfo sharedWCUserInfo];
+    userInfo.userName = self.userField.text;
+    userInfo.pwd = self.pwdField.text;
     
     //隐藏键盘
     [self.view endEditing:YES];
@@ -83,6 +79,43 @@
     }];
     
 }
+
+//- (IBAction)loginBtnClick:(id)sender {
+//    
+//    /*
+//     * 官方的登录实现
+//     * 1.把用户名和密码放在沙盒里
+//     
+//     * 2.调用AppDelegate的一个connect连接服务器并登录
+//     */
+//    
+//    NSString *userName = self.userField.text;
+//    NSString *pwd = self.pwdField.text;
+//    
+//    //保存到沙盒——偏好设置
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:userName forKey:@"userName"];
+//    [defaults setObject:pwd forKey:@"pwd"];
+//    [defaults synchronize];
+//    
+//    //隐藏键盘
+//    [self.view endEditing:YES];
+//    
+//    //登录之前给个提示
+//#warning 注意显示在当前控制器的view上
+//    [MBProgressHUD showMessage:@"正在登录中..." toView:self.view];
+//    
+//    //用户登录
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//#warning weak self弱引用
+//    __weak typeof(self) weakSelf = self;
+//    [app xmppUserLogin:^(XMPPResultType type) {
+//        //处理请求结果
+//        [weakSelf handleResultType:type];
+//    }];
+//    
+//}
+
 
 - (IBAction)cancel:(id)sender {
     
@@ -119,6 +152,12 @@
  *  登录到主界面
  */
 - (void)enterMainView{
+    
+    //更改用户的登录状态为YES
+    [WCUserInfo sharedWCUserInfo].loginStatus = YES;
+    
+    //把用户登录成功的数据，保存到沙盒
+    [[WCUserInfo sharedWCUserInfo] saveUserInfoToSanbox];
     
     //隐藏模态窗口
     [self dismissViewControllerAnimated:NO completion:nil];

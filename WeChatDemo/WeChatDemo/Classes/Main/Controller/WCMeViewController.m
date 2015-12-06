@@ -18,9 +18,16 @@
 
 @implementation WCMeViewController
 
+- (void)viewDidLoad{
+    
+    [super viewDidLoad];
+    
+    self.title = @"我";
+}
 
 - (IBAction)logoutBtnClick:(id)sender {
     
+
     //直接调用AppDelegate类的注销方法
     AppDelegate *app = [UIApplication sharedApplication].delegate;
     [app xmppUserLogout];

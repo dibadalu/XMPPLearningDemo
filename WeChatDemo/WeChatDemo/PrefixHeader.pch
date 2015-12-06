@@ -15,6 +15,7 @@
 #import <UIKit/UIkit.h>
 #import "CategoryWF.h"
 #import "MBProgressHUD+HM.h"
+#import "WCUserInfo.h"
 
 // 自定义Log
 #ifdef  DEBUG

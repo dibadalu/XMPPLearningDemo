@@ -25,7 +25,7 @@
         <!--登录-->
         <scene sceneID="XHw-Ph-JHW">
             <objects>
-                <viewController id="lpB-ad-2wM" userLabel="登录" sceneMemberID="viewController">
+                <viewController id="lpB-ad-2wM" userLabel="登录" customClass="WCLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dt4-FR-31c"/>
                         <viewControllerLayoutGuide type="bottom" id="8mF-ea-jFF"/>
@@ -43,10 +43,10 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF8-mP-VvZ">
                                         <rect key="frame" x="0.0" y="88" width="280" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hm9-Fk-Hzi">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hm9-Fk-Hzi">
                                         <rect key="frame" x="0.0" y="117" width="280" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -64,10 +64,13 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wwc-7O-mx2">
-                                        <rect key="frame" x="117" y="150" width="30" height="30"/>
+                                        <rect key="frame" x="0.0" y="150" width="280" height="30"/>
                                         <state key="normal" title="登录">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="loginBtnClick:" destination="lpB-ad-2wM" eventType="touchUpInside" id="zPM-h1-aDh"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -101,6 +104,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="登录" id="iz9-Pg-F74"/>
+                    <connections>
+                        <outlet property="loginBtn" destination="wwc-7O-mx2" id="EKT-of-JC9"/>
+                        <outlet property="pwdField" destination="hm9-Fk-Hzi" id="bBb-Kt-4ar"/>
+                        <outlet property="userLabel" destination="HF8-mP-VvZ" id="QSR-No-lpg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97x-dk-KzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
