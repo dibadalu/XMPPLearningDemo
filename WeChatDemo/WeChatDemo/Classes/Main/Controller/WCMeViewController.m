@@ -29,7 +29,9 @@
     
 
     //直接调用AppDelegate类的注销方法
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app xmppUserLogout];
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    [app xmppUserLogout];
+    
+    [[WCXMPPTool sharedWCXMPPTool] xmppUserLogout];
 }
 @end

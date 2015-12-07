@@ -20,6 +20,7 @@
 		543C1A621C12B8C500B208B4 /* UIStoryboard+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A5A1C12B8C500B208B4 /* UIStoryboard+WF.m */; };
 		543C1A631C12B8C500B208B4 /* UITextField+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A5C1C12B8C500B208B4 /* UITextField+WF.m */; };
 		543C1A641C12B8C500B208B4 /* UIView+WF.m in Sources */ = {isa = PBXBuildFile; fileRef = 543C1A5E1C12B8C500B208B4 /* UIView+WF.m */; };
+		5449790F1C152B3000E77457 /* WCXMPPTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5449790E1C152B3000E77457 /* WCXMPPTool.m */; };
 		545BAFDC1C13038D00601509 /* MBProgressHUD+HM.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BAFD81C13038D00601509 /* MBProgressHUD+HM.m */; };
 		545BAFDD1C13038D00601509 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 545BAFD91C13038D00601509 /* MBProgressHUD.bundle */; };
 		545BAFDE1C13038D00601509 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BAFDB1C13038D00601509 /* MBProgressHUD.m */; };
@@ -201,6 +202,8 @@
 		543C1A5C1C12B8C500B208B4 /* UITextField+WF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+WF.m"; sourceTree = "<group>"; };
 		543C1A5D1C12B8C500B208B4 /* UIView+WF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WF.h"; sourceTree = "<group>"; };
 		543C1A5E1C12B8C500B208B4 /* UIView+WF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WF.m"; sourceTree = "<group>"; };
+		5449790D1C152B3000E77457 /* WCXMPPTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCXMPPTool.h; sourceTree = "<group>"; };
+		5449790E1C152B3000E77457 /* WCXMPPTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCXMPPTool.m; sourceTree = "<group>"; };
 		545BAFD71C13038D00601509 /* MBProgressHUD+HM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+HM.h"; sourceTree = "<group>"; };
 		545BAFD81C13038D00601509 /* MBProgressHUD+HM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+HM.m"; sourceTree = "<group>"; };
 		545BAFD91C13038D00601509 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
@@ -527,6 +530,8 @@
 				5432BFC01C140B70004FC63A /* Singleton.h */,
 				5432BFC11C140BBD004FC63A /* WCUserInfo.h */,
 				5432BFC21C140BBD004FC63A /* WCUserInfo.m */,
+				5449790D1C152B3000E77457 /* WCXMPPTool.h */,
+				5449790E1C152B3000E77457 /* WCXMPPTool.m */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -1693,6 +1698,7 @@
 				54723FD51C12A74A0032C084 /* XMPPCoreDataStorage.m in Sources */,
 				5432BFC61C141BBE004FC63A /* WCBaseLoginViewController.m in Sources */,
 				54723FC81C12A74A0032C084 /* XMPPXOAuth2Google.m in Sources */,
+				5449790F1C152B3000E77457 /* WCXMPPTool.m in Sources */,
 				54723FCB1C12A74A0032C084 /* NSXMLElement+XMPP.m in Sources */,
 				5472403D1C12A74A0032C084 /* DDXMLDocument.m in Sources */,
 				5472402B1C12A74A0032C084 /* XMPPMessage+XEP_0333.m in Sources */,

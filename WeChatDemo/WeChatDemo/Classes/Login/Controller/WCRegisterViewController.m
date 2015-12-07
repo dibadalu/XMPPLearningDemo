@@ -62,13 +62,12 @@
     userInfo.registerUserName = self.userField.text;
     userInfo.registerPwd = self.pwdField.text;
 
-    //2.调用AppDelegate的xmppRegister方法
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    app.registerOperation = YES;//标识注册操作
+    //2.调用WCXMPPTool的xmppRegister方法
+    [WCXMPPTool sharedWCXMPPTool].registerOperation = YES;//标识注册操作
     //提示
     [MBProgressHUD showMessage:@"正在注册中..." toView:self.view];
     __weak typeof(self) weakSelf = self;
-    [app xmppRegister:^(XMPPResultType type) {
+    [[WCXMPPTool sharedWCXMPPTool] xmppRegister:^(XMPPResultType type) {
         [weakSelf handleResultType:type];
     }];
 }
@@ -110,7 +109,7 @@
     WCLog(@"text");
     //设置注册按钮的可用状态
 //    BOOL enabled = (self.userField.text.length != 0 && self.pwdField.text.length != 0);
-    BOOL enabled = self.userField.hasText && self.pwdField.hasText ;
+    BOOL enabled = self.userField.hasText && self.pwdField.hasText;
     self.registerBtn.enabled = enabled;
 }
 

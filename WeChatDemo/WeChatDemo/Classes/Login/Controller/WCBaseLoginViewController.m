@@ -33,11 +33,10 @@
     [MBProgressHUD showMessage:@"正在登录中..." toView:self.view];
     
     //用户登录
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    app.registerOperation = NO;
+    [WCXMPPTool sharedWCXMPPTool].registerOperation = NO;
 #warning weak self弱引用,只有自己定义的block才需要弱引用
     __weak typeof(self) weakSelf = self;
-    [app xmppUserLogin:^(XMPPResultType type) {
+    [[WCXMPPTool sharedWCXMPPTool] xmppUserLogin:^(XMPPResultType type) {
         //处理请求结果
         [weakSelf handleResultType:type];
     }];
