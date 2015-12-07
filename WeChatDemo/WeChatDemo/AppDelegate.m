@@ -8,12 +8,20 @@
 
 #import "AppDelegate.h"
 #import "WCNavigationController.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
 
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    //沙盒路径
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+    WCLog(@"%@",path);
+    
+    //打开XMPP的日志
+//    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     //设置导航栏的背景
     [WCNavigationController setupNavTheme];
