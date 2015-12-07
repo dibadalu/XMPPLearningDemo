@@ -21,9 +21,15 @@ typedef enum {
 //设置block的别名
 typedef void (^XMPPResultBlock)(XMPPResultType type);//XMPP请求结果的block
 
+
+
 @interface WCXMPPTool : NSObject
 
 singleton_interface(WCXMPPTool);
+
+/** 电子名片 */
+@property(nonatomic,strong) XMPPvCardTempModule *vCard;
+
 
 /** 注册操作标识 YES表示注册，NO表示登录 */
 @property(nonatomic,assign,getter=isRegisterOperation) BOOL registerOperation;

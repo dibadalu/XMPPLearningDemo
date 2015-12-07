@@ -57,10 +57,12 @@
     id destVc = segue.destinationViewController;
     if ([destVc isKindOfClass:[WCNavigationController class]]) {
         WCNavigationController *nav = destVc;
-        //获取根控制器
-        WCRegisterViewController *registerVc =(WCRegisterViewController *) nav.topViewController;
-         //设置注册控制器的代理
-        registerVc.delegate = self;
+        if ([nav.topViewController isKindOfClass:[WCRegisterViewController class]]) {            
+            //获取根控制器
+            WCRegisterViewController *registerVc =(WCRegisterViewController *) nav.topViewController;
+            //设置注册控制器的代理
+            registerVc.delegate = self;
+        }
     }
     
 }

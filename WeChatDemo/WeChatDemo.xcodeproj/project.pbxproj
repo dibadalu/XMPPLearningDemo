@@ -162,6 +162,7 @@
 		547240411C12A74A0032C084 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54723FBF1C12A74A0032C084 /* libidn.a */; };
 		547240431C12A75D0032C084 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 547240421C12A75D0032C084 /* libxml2.dylib */; };
 		547240451C12A76A0032C084 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 547240441C12A76A0032C084 /* libresolv.dylib */; };
+		54ECF03E1C15ADF100ACE600 /* WCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -492,6 +493,8 @@
 		547240421C12A75D0032C084 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		547240441C12A76A0032C084 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		547240471C12A8420032C084 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		54ECF03C1C15ADF100ACE600 /* WCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCProfileViewController.h; sourceTree = "<group>"; };
+		54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCProfileViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -520,6 +523,8 @@
 			children = (
 				5432BFB91C1331FF004FC63A /* WCMeViewController.h */,
 				5432BFBA1C1331FF004FC63A /* WCMeViewController.m */,
+				54ECF03C1C15ADF100ACE600 /* WCProfileViewController.h */,
+				54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1689,6 +1694,7 @@
 				54723FE21C12A74A0032C084 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				547240291C12A74A0032C084 /* NSXMLElement+XEP_0297.m in Sources */,
 				547240181C12A74A0032C084 /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
+				54ECF03E1C15ADF100ACE600 /* WCProfileViewController.m in Sources */,
 				5432BFC31C140BBD004FC63A /* WCUserInfo.m in Sources */,
 				54723FEC1C12A74A0032C084 /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				54723FFE1C12A74A0032C084 /* XMPPvCardTempAdrTypes.m in Sources */,

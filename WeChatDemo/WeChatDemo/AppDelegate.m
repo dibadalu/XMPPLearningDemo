@@ -21,7 +21,7 @@
     WCLog(@"%@",path);
     
     //打开XMPP的日志
-//    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
     //设置导航栏的背景
     [WCNavigationController setupNavTheme];

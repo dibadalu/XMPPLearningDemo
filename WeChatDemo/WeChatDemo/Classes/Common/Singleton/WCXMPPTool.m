@@ -21,7 +21,6 @@
     XMPPStream *_xmppStream;
     XMPPResultBlock _resultBlock;
     
-    XMPPvCardTempModule *_vCard;//电子名片
     XMPPvCardCoreDataStorage *_vCardStorage;//电子名片的数据存储
     
     XMPPvCardAvatarModule *_avatar;//头像模块
@@ -59,6 +58,7 @@ singleton_implementation(WCXMPPTool);
     //添加头像模块
     _avatar = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:_vCard];
     [_avatar activate:_xmppStream];
+    
     
     
     
