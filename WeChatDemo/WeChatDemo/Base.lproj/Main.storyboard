@@ -192,7 +192,7 @@
         <!--个人信息详细控制器-->
         <scene sceneID="R9P-2M-4Xq">
             <objects>
-                <tableViewController id="7Nf-t3-yNq" userLabel="个人信息详细控制器" customClass="WCProfileViewController" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="7Nf-t3-yNq" userLabel="个人信息详细控制器" customClass="WCProfileViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nah-9d-e0i">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -386,11 +386,58 @@
                         <outlet property="phoneLabel" destination="6n6-sW-IfE" id="0MR-u1-U52"/>
                         <outlet property="titleLabel" destination="N2f-LY-aei" id="yFr-Df-ID2"/>
                         <outlet property="weixinNumLabel" destination="Pyu-cS-Aml" id="4br-dJ-a8l"/>
+                        <segue destination="fe4-k6-B16" kind="show" identifier="EditVCardSegue" id="jPI-Vv-T81"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wZz-1y-2aX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="696" y="2062"/>
+        </scene>
+        <!--编辑电子名片-->
+        <scene sceneID="AMk-jd-Ks9">
+            <objects>
+                <tableViewController hidesBottomBarWhenPushed="YES" id="fe4-k6-B16" userLabel="编辑电子名片" customClass="WCEditProfileTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="54A-Md-Q8T">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="uA7-x2-XSQ">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="Tt0-tH-Ncq">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tt0-tH-Ncq" id="7pV-0t-tFQ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Has-1u-BHw">
+                                                    <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Has-1u-BHw" secondAttribute="trailing" id="JWo-W1-wYc"/>
+                                                <constraint firstItem="Has-1u-BHw" firstAttribute="top" secondItem="7pV-0t-tFQ" secondAttribute="topMargin" id="Rkv-a9-UUz"/>
+                                                <constraint firstItem="Has-1u-BHw" firstAttribute="leading" secondItem="7pV-0t-tFQ" secondAttribute="leadingMargin" id="SRS-SS-tne"/>
+                                                <constraint firstItem="Has-1u-BHw" firstAttribute="bottom" secondItem="7pV-0t-tFQ" secondAttribute="bottomMargin" id="rPY-DN-r2Z"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="fe4-k6-B16" id="Snv-TV-Xkv"/>
+                            <outlet property="delegate" destination="fe4-k6-B16" id="8gf-bc-Bry"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="textField" destination="Has-1u-BHw" id="7dr-Q8-rs5"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0qT-X3-aqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1418" y="2062"/>
         </scene>
         <!--我Nav-->
         <scene sceneID="mXY-cU-vI0">

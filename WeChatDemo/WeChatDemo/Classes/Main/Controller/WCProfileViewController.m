@@ -8,8 +8,10 @@
 
 #import "WCProfileViewController.h"
 #import "XMPPvCardTemp.h"
+#import "WCEditProfileTableViewController.h"
 
-@interface WCProfileViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+
+@interface WCProfileViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,WCEditProfileTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerView;//头像
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;//昵称
@@ -85,9 +87,24 @@
         [sheet showInView:self.view];
     }else{//跳到下一个控制器
         WCLog(@"跳到下一个控制器");
+        // sender 传递给下一个控制器的参数
+        [self performSegueWithIdentifier:@"EditVCardSegue" sender:cell];
+
     }
     
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    //获取编辑个人信息的控制器
+    id destVc = segue.destinationViewController;
+    if ([destVc isKindOfClass:[WCEditProfileTableViewController class]]) {
+        WCEditProfileTableViewController *editVc = destVc;
+        editVc.delegate = self;//设置代理
+        editVc.cell = sender;
+    }
+
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -118,6 +135,8 @@
     
 }
 
+
+
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
@@ -129,10 +148,53 @@
     //隐藏模态窗口
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    /*
-     Warning: Attempt to present <UIImagePickerController: 0x7c40a400>  on <WCProfileViewController: 0x7a19b5b0> which is already presenting (null)
-     模拟器问题，换模拟器
-     */
+    //更新数据
+    [self editProfileTableViewControllerDidSave];
+    
 }
 
+#pragma mark - WCEditProfileTableViewControllerDelegate
+- (void)editProfileTableViewControllerDidSave{
+    
+    //保存
+    //更新到服务器
+    //获取当前的电子名片信息
+    XMPPvCardTemp *myVCard = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp;
+    
+    //图片
+     myVCard.photo = UIImagePNGRepresentation(self.headerView.image);
+
+    //昵称
+    myVCard.nickname = self.nickNameLabel.text;
+    
+    //公司
+    myVCard.orgName = self.orgNameLabel.text;
+    
+    //部门
+    if (self.orgUnitLabel.text > 0) {
+        myVCard.orgUnits = @[self.orgUnitLabel.text];
+    }
+    
+    //职位
+    myVCard.title = self.titleLabel.text;
+    
+    //电话
+    myVCard.note = self.phoneLabel.text;
+    
+    //邮件
+    myVCard.mailer = self.emailLabel.text;
+    
+    //这个方法内部会实现数据上传到服务器
+    [[WCXMPPTool sharedWCXMPPTool].vCard updateMyvCardTemp:myVCard];
+    
+
+}
+
+
+
 @end
+
+/*
+ Warning: Attempt to present <UIImagePickerController: 0x7c40a400>  on <WCProfileViewController: 0x7a19b5b0> which is already presenting (null)
+ 模拟器问题，换模拟器
+ */

@@ -163,6 +163,7 @@
 		547240431C12A75D0032C084 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 547240421C12A75D0032C084 /* libxml2.dylib */; };
 		547240451C12A76A0032C084 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 547240441C12A76A0032C084 /* libresolv.dylib */; };
 		54ECF03E1C15ADF100ACE600 /* WCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */; };
+		54ECF0411C15BBC600ACE600 /* WCEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ECF0401C15BBC600ACE600 /* WCEditProfileTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -495,6 +496,8 @@
 		547240471C12A8420032C084 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		54ECF03C1C15ADF100ACE600 /* WCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCProfileViewController.h; sourceTree = "<group>"; };
 		54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCProfileViewController.m; sourceTree = "<group>"; };
+		54ECF03F1C15BBC600ACE600 /* WCEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCEditProfileTableViewController.h; sourceTree = "<group>"; };
+		54ECF0401C15BBC600ACE600 /* WCEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCEditProfileTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -525,6 +528,8 @@
 				5432BFBA1C1331FF004FC63A /* WCMeViewController.m */,
 				54ECF03C1C15ADF100ACE600 /* WCProfileViewController.h */,
 				54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */,
+				54ECF03F1C15BBC600ACE600 /* WCEditProfileTableViewController.h */,
+				54ECF0401C15BBC600ACE600 /* WCEditProfileTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1740,6 +1745,7 @@
 				5472403C1C12A74A0032C084 /* NSString+DDXML.m in Sources */,
 				547240321C12A74A0032C084 /* XMPPStringPrep.m in Sources */,
 				54723E4F1C12A6740032C084 /* main.m in Sources */,
+				54ECF0411C15BBC600ACE600 /* WCEditProfileTableViewController.m in Sources */,
 				547240271C12A74A0032C084 /* XMPPAttentionModule.m in Sources */,
 				54723FDA1C12A74A0032C084 /* XMPPResourceCoreDataStorageObject.m in Sources */,
 				54723FEF1C12A74A0032C084 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
