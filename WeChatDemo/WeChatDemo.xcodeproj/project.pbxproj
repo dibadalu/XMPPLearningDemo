@@ -27,6 +27,9 @@
 		545BAFE31C13149D00601509 /* WCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BAFE21C13149D00601509 /* WCNavigationController.m */; };
 		545BE9E71C16A39B00643470 /* WCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BE9E61C16A39B00643470 /* WCContactsViewController.m */; };
 		545BE9EA1C16B3A700643470 /* WCAddContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BE9E91C16B3A700643470 /* WCAddContactViewController.m */; };
+		545BE9ED1C16C23800643470 /* WCChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BE9EC1C16C23800643470 /* WCChatViewController.m */; };
+		545BE9F11C16C2E900643470 /* WCInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BE9F01C16C2E900643470 /* WCInputView.m */; };
+		545BE9F31C16C2F900643470 /* WCInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545BE9F21C16C2F900643470 /* WCInputView.xib */; };
 		54723E4F1C12A6740032C084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E4E1C12A6740032C084 /* main.m */; };
 		54723E521C12A6740032C084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E511C12A6740032C084 /* AppDelegate.m */; };
 		54723E551C12A6740032C084 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E541C12A6740032C084 /* ViewController.m */; };
@@ -219,6 +222,11 @@
 		545BE9E61C16A39B00643470 /* WCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCContactsViewController.m; sourceTree = "<group>"; };
 		545BE9E81C16B3A700643470 /* WCAddContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAddContactViewController.h; sourceTree = "<group>"; };
 		545BE9E91C16B3A700643470 /* WCAddContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAddContactViewController.m; sourceTree = "<group>"; };
+		545BE9EB1C16C23800643470 /* WCChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCChatViewController.h; sourceTree = "<group>"; };
+		545BE9EC1C16C23800643470 /* WCChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCChatViewController.m; sourceTree = "<group>"; };
+		545BE9EF1C16C2E900643470 /* WCInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCInputView.h; sourceTree = "<group>"; };
+		545BE9F01C16C2E900643470 /* WCInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCInputView.m; sourceTree = "<group>"; };
+		545BE9F21C16C2F900643470 /* WCInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCInputView.xib; sourceTree = "<group>"; };
 		54723E491C12A6740032C084 /* WeChatDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54723E4D1C12A6740032C084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54723E4E1C12A6740032C084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -540,6 +548,8 @@
 				545BE9E61C16A39B00643470 /* WCContactsViewController.m */,
 				545BE9E81C16B3A700643470 /* WCAddContactViewController.h */,
 				545BE9E91C16B3A700643470 /* WCAddContactViewController.m */,
+				545BE9EB1C16C23800643470 /* WCChatViewController.h */,
+				545BE9EC1C16C23800643470 /* WCChatViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -568,6 +578,7 @@
 		543C1A491C12AE6C00B208B4 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				545BE9EE1C16C2C100643470 /* View */,
 				5432BFB81C1331C1004FC63A /* Controller */,
 				54723E561C12A6740032C084 /* Main.storyboard */,
 			);
@@ -646,6 +657,16 @@
 				545BAFE21C13149D00601509 /* WCNavigationController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		545BE9EE1C16C2C100643470 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				545BE9EF1C16C2E900643470 /* WCInputView.h */,
+				545BE9F01C16C2E900643470 /* WCInputView.m */,
+				545BE9F21C16C2F900643470 /* WCInputView.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		54723E401C12A6740032C084 = {
@@ -1599,6 +1620,7 @@
 				54723E581C12A6740032C084 /* Main.storyboard in Resources */,
 				54723E5D1C12A6740032C084 /* LaunchScreen.xib in Resources */,
 				5472403B1C12A74A0032C084 /* README.txt in Resources */,
+				545BE9F31C16C2F900643470 /* WCInputView.xib in Resources */,
 				54723E5A1C12A6740032C084 /* Images.xcassets in Resources */,
 				545BAFDD1C13038D00601509 /* MBProgressHUD.bundle in Resources */,
 			);
@@ -1651,6 +1673,7 @@
 				54723E521C12A6740032C084 /* AppDelegate.m in Sources */,
 				54723FE71C12A74A0032C084 /* XMPPLastActivity.m in Sources */,
 				547240141C12A74A0032C084 /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
+				545BE9F11C16C2E900643470 /* WCInputView.m in Sources */,
 				54723FDE1C12A74A0032C084 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				5472402F1C12A74A0032C084 /* RFImageToDataTransformer.m in Sources */,
 				54723FD61C12A74A0032C084 /* XMPPGoogleSharedStatus.m in Sources */,
@@ -1701,6 +1724,7 @@
 				543C1A641C12B8C500B208B4 /* UIView+WF.m in Sources */,
 				547240221C12A74A0032C084 /* XMPPPing.m in Sources */,
 				547240241C12A74A0032C084 /* XMPPTime.m in Sources */,
+				545BE9ED1C16C23800643470 /* WCChatViewController.m in Sources */,
 				54723FE81C12A74A0032C084 /* XMPPPrivacy.m in Sources */,
 				547240161C12A74A0032C084 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				5432BFC91C1421CD004FC63A /* WCRegisterViewController.m in Sources */,

@@ -148,4 +148,13 @@
     
 }
 
+#pragma mark - 选中cell，进入聊天界面
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //Chatsegue
+    [self performSegueWithIdentifier:@"Chatsegue" sender:nil];
+    
+    
+}
+
 @end
