@@ -18,7 +18,7 @@
  */
 
 @interface WCXMPPTool ()<XMPPStreamDelegate>{
-    XMPPStream *_xmppStream;
+    
     XMPPResultBlock _resultBlock;
     
     XMPPReconnect *_reconnect;//自动连接模块
@@ -27,7 +27,6 @@
     
     XMPPvCardAvatarModule *_avatar;//头像模块
     
-    XMPPRoster *_roster;//花名册模块
 }
 
 //1.初始化XMPPStream

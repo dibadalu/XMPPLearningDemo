@@ -12,8 +12,7 @@
 #define UserNameKey @"userName"
 #define LoginStatusKey @"loginStatus"
 #define PwdKey @"pwd"
-//定义域名
-static NSString *domain = @"dibadalu.local";
+
 
 @implementation WCUserInfo
 

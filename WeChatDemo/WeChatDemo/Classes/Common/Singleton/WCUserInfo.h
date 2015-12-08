@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "Singleton.h"
 
+/** 域名 */
+static NSString *domain = @"dibadalu.local";
+
 @interface WCUserInfo : NSObject
 
 singleton_interface(WCUserInfo);
