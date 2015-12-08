@@ -133,5 +133,19 @@
     return cell;
 }
 
+#pragma mark - tableView代理方法
+#pragma mark - 实现这个方法，cell往左滑就有个delete
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        WCLog(@"删除按钮");
+        
+        //好友的JID
+        XMPPUserCoreDataStorageObject *friend = _resultsController.fetchedObjects[indexPath.row];
+        XMPPJID *friendJid = friend.jid;
+        [[WCXMPPTool sharedWCXMPPTool].roster removeUser:friendJid];
+    }
+    
+}
 
 @end
