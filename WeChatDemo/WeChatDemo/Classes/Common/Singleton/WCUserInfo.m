@@ -12,6 +12,8 @@
 #define UserNameKey @"userName"
 #define LoginStatusKey @"loginStatus"
 #define PwdKey @"pwd"
+//定义域名
+static NSString *domain = @"dibadalu.local";
 
 @implementation WCUserInfo
 
@@ -37,6 +39,9 @@ singleton_implementation(WCUserInfo);
     
 }
 
-
+- (NSString *)jid{
+    
+    return [NSString stringWithFormat:@"%@@%@",self.userName,domain];
+}
 
 @end

@@ -29,6 +29,8 @@ singleton_interface(WCXMPPTool);
 
 /** 电子名片 */
 @property(nonatomic,strong) XMPPvCardTempModule *vCard;
+/** 花名册的数据存储 */
+@property(nonatomic,strong) XMPPRosterCoreDataStorage *rosterStorage;
 
 
 /** 注册操作标识 YES表示注册，NO表示登录 */

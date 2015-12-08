@@ -41,7 +41,7 @@
  *  加载电子名片信息
  */
 - (void)loadVCard{
-    XMPPvCardTemp *myvCard = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp;
+    XMPPvCardTemp *myvCard = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp;//获取个人的电子名片信息
     //设置头像
     if (myvCard.photo) {
         self.headerView.image = [UIImage imageWithData:myvCard.photo];

@@ -24,6 +24,8 @@ singleton_interface(WCUserInfo);
 @property(nonatomic,copy) NSString *registerUserName;
 /** 注册的密码 */
 @property(nonatomic,copy) NSString *registerPwd;
+/** 字符串类型jid */
+@property(nonatomic,copy) NSString *jid;
 
 /** 加载沙盒的用户数据 */
 - (void)loadUserInfoFromSanbox;

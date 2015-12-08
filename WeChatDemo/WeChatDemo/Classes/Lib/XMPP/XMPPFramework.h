@@ -31,6 +31,11 @@
 #import "XMPPvCardCoreDataStorage.h"
 // 头像模块
 #import "XMPPvCardAvatarModule.h"
+// 花名册模块
+#import "XMPPRoster.h"
+//#import "XMPPRosterMemoryStorage.h"
+#import "XMPPRosterCoreDataStorage.h"
+
 
 
  
@@ -41,9 +46,6 @@
 // 
 //#import "XMPPCoreDataStorage.h"
 //
-//#import "XMPPRoster.h"
-//#import "XMPPRosterMemoryStorage.h"
-//#import "XMPPRosterCoreDataStorage.h"
 //
 //#import "XMPPJabberRPCModule.h"
 //#import "XMPPIQ+JabberRPC.h"
