@@ -28,7 +28,7 @@
     XMPPvCardAvatarModule *_avatar;//头像模块
     
     XMPPMessageArchiving *_msgArchiving;//聊天模块
-    XMPPMessageArchivingCoreDataStorage *_msgStorage;//聊天的数据存储
+    
     
 }
 

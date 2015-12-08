@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XMPPJID.h"
 
 @interface WCChatViewController : UIViewController
+
+/** 好友JID */
+@property(nonatomic,strong) XMPPJID *friendJid;
 
 @end

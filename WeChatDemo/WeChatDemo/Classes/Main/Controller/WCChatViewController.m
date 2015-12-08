@@ -9,9 +9,14 @@
 #import "WCChatViewController.h"
 #import "WCInputView.h"
 
-@interface WCChatViewController ()<UITableViewDelegate>
+@interface WCChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate>{
+    
+    NSFetchedResultsController *_resultsController;//监听消息
+    
+}
 
 @property(nonatomic,strong) NSLayoutConstraint *inputViewConstraint;//inputView底部约束
+@property(nonatomic,strong) UITableView *tableView;//表格;
 
 @end
 
@@ -26,12 +31,15 @@
     // 监听键盘
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    //加载聊天消息数据
+    [self loadMsg];
 }
 
 #pragma mark - 监听键盘
 #pragma mark - 显示键盘
 - (void)keyboardWillShow:(NSNotification *)noti{
-    NSLog(@"%@",noti.userInfo);
+//    NSLog(@"%@",noti.userInfo);
     //获取键盘的高度
     CGRect kyEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat kyHeight = kyEndFrm.size.height;
@@ -67,11 +75,13 @@
     //代码方式实现自动布局 VFL
     //创建一个tableView
     UITableView *tableView = [[UITableView alloc] init];
-    tableView.backgroundColor = [UIColor redColor];
+//    tableView.backgroundColor = [UIColor redColor];
     tableView.delegate = self;
+    tableView.dataSource = self;
 #warning 代码实现自动布局，要设置下面的属性为NO
     tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:tableView];
+    self.tableView = tableView;
     
     //创建输入框view
     WCInputView *inputView = [WCInputView inputView];
@@ -99,12 +109,73 @@
     
 }
 
+#pragma mark - 加载XMPPMessageArchiving数据库的数据显示在表格
+- (void)loadMsg{
+    
+    //上下文
+    NSManagedObjectContext *context = [WCXMPPTool sharedWCXMPPTool].msgStorage.mainThreadManagedObjectContext;
+    
+    //请求对象
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XMPPMessageArchiving_Message_CoreDataObject"];
+    
+    //过滤和排序
+    //当前登录用户的JID
+    //当前聊天好友的JID
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@ AND bareJidStr = %@",[WCUserInfo sharedWCUserInfo].jid,self.friendJid.bare];
+    WCLog(@"%@",pre);
+    request.predicate = pre;
+    
+    //时间的升序
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
+    request.sortDescriptors = @[sort];
+    
+    //查询
+    _resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+    _resultsController.delegate = self;//设置代理
+    NSError *error = nil;
+    [_resultsController performFetch:&error];
+    if (error) {
+        WCLog(@"%@",error);
+    }
+        
+}
+
+#pragma mark - tableView数据源
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return _resultsController.fetchedObjects.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *ID = @"ChatCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    
+    //获取聊天消息对象
+    XMPPMessageArchiving_Message_CoreDataObject *msg = _resultsController.fetchedObjects[indexPath.row];
+    cell.textLabel.text = msg.body;
+    
+    return cell;
+}
+
 #pragma mark - tableView代理方法
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     
     [self.view endEditing:YES];
 }
 
-
+#pragma mark - NSFetchedResultsControllerDelegate 监听消息
+#pragma mark - 当数据库的内容发生改变，会调用这个方法
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
+    
+    WCLog(@"数据库的内容发生改变");
+    
+    //刷新数据
+    [self.tableView reloadData];
+    
+}
 
 @end
