@@ -9,7 +9,7 @@
 #import "WCChatViewController.h"
 #import "WCInputView.h"
 
-@interface WCChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate>{
+@interface WCChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,UITextViewDelegate>{
     
     NSFetchedResultsController *_resultsController;//监听消息
     
@@ -50,6 +50,9 @@
     }
     self.inputViewConstraint.constant = kyHeight;
     
+    //表格滚动到底部
+//    [self scrollToTableBottom];
+    
 }
 #pragma mark - 隐藏键盘
 - (void)keyboardWillHide:(NSNotification *)noti{
@@ -86,6 +89,8 @@
     //创建输入框view
     WCInputView *inputView = [WCInputView inputView];
     inputView.translatesAutoresizingMaskIntoConstraints = NO;
+    //设置代理
+    inputView.textView.delegate = self;
     [self.view addSubview:inputView];
     
     
@@ -156,7 +161,14 @@
     
     //获取聊天消息对象
     XMPPMessageArchiving_Message_CoreDataObject *msg = _resultsController.fetchedObjects[indexPath.row];
-    cell.textLabel.text = msg.body;
+    
+    //显示消息
+    if ([msg.outgoing boolValue]) {//YES 自己发的
+        cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msg.body];
+
+    }else{//NO 别人发的
+       cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msg.body];
+    }
     
     return cell;
 }
@@ -175,7 +187,46 @@
     
     //刷新数据
     [self.tableView reloadData];
+    //滚动到底部
+    [self scrollToTableBottom];
     
 }
 
+#pragma mark - UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    WCLog(@"%@",textView.text);
+    
+    NSString *text = textView.text;
+    //换行就等于点击了send
+    if ([text rangeOfString:@"\n"].length != 0) {
+        WCLog(@"发送数据：%@",text);
+        [self sendMsgWithText:text];
+        //清空textView
+        textView.text = nil;
+        
+    }else{
+        WCLog(@"%@",textView.text);
+
+    }
+}
+
+#pragma mark - 发送聊天消息
+- (void)sendMsgWithText:(NSString *)text{
+    
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendJid];
+    //设置内容
+    [msg addBody:text];
+    WCLog(@"%@",msg);
+    [[WCXMPPTool sharedWCXMPPTool].xmppStream sendElement:msg];
+    
+}
+
+#pragma mark - 滚动到底部
+- (void)scrollToTableBottom{
+    NSInteger lastRow = _resultsController.fetchedObjects.count - 1;
+    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+    
+    [self.tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
 @end

@@ -10,6 +10,9 @@
 
 @interface WCInputView : UIView
 
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+
 + (instancetype)inputView;
 
 @end
