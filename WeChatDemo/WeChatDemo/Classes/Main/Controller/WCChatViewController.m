@@ -20,28 +20,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
+    //初始化聊天界面
     [self setupView];
     
     // 监听键盘
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbFrmWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
--(void)kbFrmWillChange:(NSNotification *)noti{
-    //    NSLog(@"%@",noti.userInfo);
-    
-    // 获取窗口的高度
-    CGFloat windowH = [UIScreen mainScreen].bounds.size.height;
-    // 键盘结束的Frame
-    CGRect kbEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    // 获取键盘结束的y值
-    CGFloat kbEndY = kbEndFrm.origin.y;
-    //inputView底部约束
-    self.inputViewConstraint.constant = windowH - kbEndY;
+#pragma mark - 监听键盘
+#pragma mark - 显示键盘
+- (void)keyboardWillShow:(NSNotification *)noti{
+    NSLog(@"%@",noti.userInfo);
+    //获取键盘的高度
+    CGRect kyEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat kyHeight = kyEndFrm.size.height;
+
+#warning iOS7以下，当屏幕是横屏时，键盘的高度是size.width
+    if ([[UIDevice currentDevice].systemVersion doubleValue] < 8.0 && UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        kyHeight = kyEndFrm.size.width;
+    }
+    self.inputViewConstraint.constant = kyHeight;
     
 }
+#pragma mark - 隐藏键盘
+- (void)keyboardWillHide:(NSNotification *)noti{
+    //隐藏键盘的时候，距离底部的约束永远为0
+    self.inputViewConstraint.constant = 0;
+}
 
+//-(void)kbFrmWillChange:(NSNotification *)noti{
+//    //    NSLog(@"%@",noti.userInfo);
+//    
+//    // 获取窗口的高度
+//    CGFloat windowH = [UIScreen mainScreen].bounds.size.height;
+//    // 键盘结束的Frame
+//    CGRect kbEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    // 获取键盘结束的y值
+//    CGFloat kbEndY = kbEndFrm.origin.y;
+//    //inputView底部约束
+//    self.inputViewConstraint.constant = windowH - kbEndY;
+//}
+
+#pragma mark - 代码方式实现自动布局 VFL
 - (void)setupView{
     //代码方式实现自动布局 VFL
     //创建一个tableView
@@ -75,14 +96,6 @@
     [self.view addConstraints:vContraints];
     self.inputViewConstraint = [vContraints lastObject];
 //    WCLog(@"%@",vContraints);
-    /*
-     (
-     "<NSLayoutConstraint:0x7fecc34d5920 V:|-(64)-[UITableView:0x7fecc4831a00]   (Names: '|':UIView:0x7fecc34b7ed0 )>",
-     "<NSLayoutConstraint:0x7fecc34d5970 V:[UITableView:0x7fecc4831a00]-(0)-[WCInputView:0x7fecc36acc40]>",
-     "<NSLayoutConstraint:0x7fecc34d59f0 V:[WCInputView:0x7fecc36acc40(50)]>",
-     "<NSLayoutConstraint:0x7fecc34d5a40 V:[WCInputView:0x7fecc36acc40]-(0)-|   (Names: '|':UIView:0x7fecc34b7ed0 )>"
-     )
-     */
     
 }
 

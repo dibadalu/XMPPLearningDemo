@@ -85,8 +85,11 @@
     [self dismissViewControllerAnimated:NO completion:nil];
     
     //登录成功来到主界面
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self.view.window.rootViewController = storyboard.instantiateInitialViewController;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIWindow *window = self.view.window;
+//    window.rootViewController = storyboard.instantiateInitialViewController;
+    
+    [UIStoryboard showInitialVCWithName:@"Main"];
 }
 
 @end
