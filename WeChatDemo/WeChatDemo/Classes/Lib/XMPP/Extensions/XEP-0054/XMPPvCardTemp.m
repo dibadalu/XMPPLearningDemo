@@ -320,11 +320,73 @@ NSString *const kXMPPvCardTempElement = @"vCard";
 - (void)setTelecomsAddresses:(NSArray *)tels { }
 - (void)clearTelecomsAddresses { }
 
+/**
+ *  邮箱解析
+ */
+- (NSArray *)emailAddresses {
+    
+    //获取EMAIL标签数组
+    NSArray *emailEles = [self elementsForName:@"EMAIL"];
+    if (emailEles.count != 0) {
+        //只取第一个EMAIL标签
+        NSXMLElement *email = emailEles[0];
+        //获取USERID标签
+        NSXMLElement *userID = [email elementForName:@"USERID"];
+        return @[[userID stringValue]];
+    }
+    
+    //1.获取email标签
+//    NSXMLElement *emailE = [self elementForName:@"EMAIL"];
+//    
+//    //2.通过EMAIL标签找到USERID
+//    NSXMLElement *userIDE = [emailE elementForName:@"USERID"];
+//    
+//    NSString *email = [userIDE stringValue];
+//    if (email.length > 0) {
+//        return @[email];
+//    }
 
-- (NSArray *)emailAddresses { return nil; }
+    return nil;
+}
 - (void)addEmailAddress:(XMPPvCardTempEmail *)email { }
 - (void)removeEmailAddress:(XMPPvCardTempEmail *)email { }
-- (void)setEmailAddresses:(NSArray *)emails { }
+/**
+ *  保存邮箱
+ */
+- (void)setEmailAddresses:(NSArray *)emails {
+    
+    //获取EMAIL标签数组
+    NSArray *emailEles = [self elementsForName:@"EMAIL"];
+    if (emailEles.count != 0 && emails.count!=0) {//存在EMAIL标签，邮箱输入不为0
+        //只更改第一个EMAIL标签
+        NSXMLElement *email = emailEles[0];
+        //创建新的USERID标签
+        NSXMLElement *userID = [NSXMLElement elementWithName:@"USERID" stringValue:emails[0] ];
+        //移除旧的USERID标签
+        [email removeElementForName:@"USERID"];
+        //添加新的USERID标签
+        [email addChild:userID];
+    }
+    
+//    if (emails.count == 0) {
+//        return;
+//    }
+//    
+//    //1.获取email标签
+//    NSXMLElement *emailE = [self elementForName:@"EMAIL"];
+//    
+//    //2.移除USERID标签
+//    [emailE removeElementForName:@"USERID"];
+//    
+//    //3.创建新的USERID标签
+//    //只取第一个邮箱
+//    NSString *emailStr = emails[0];
+//    NSXMLElement *userIDE = [NSXMLElement elementWithName:@"USERID" xmlns:emailStr];
+//    
+//    //4.添加到EMAIL标签
+//    [emailE addChild:userIDE];
+
+}
 - (void)clearEmailAddresses { }
 
 

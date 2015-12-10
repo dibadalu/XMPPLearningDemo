@@ -58,14 +58,22 @@
     }
     //职位
     self.titleLabel.text = myvCard.title;
+    
     //电话
 #warning myvCard.telecomsAddresses这个get方法，没有对电子名片的xml数据进行解析
     //使用note字段充当电话
     self.phoneLabel.text = myvCard.note;
+    
     //邮件
     // myvCard.emailAddresses 用mailer充当邮件
-    self.emailLabel.text = myvCard.mailer;
-
+//    self.emailLabel.text = myvCard.mailer;
+    if (myvCard.emailAddresses.count > 0) {
+        //只取第一个邮箱
+        self.emailLabel.text = myvCard.emailAddresses[0];
+    }
+    
+    
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -182,7 +190,10 @@
     myVCard.note = self.phoneLabel.text;
     
     //邮件
-    myVCard.mailer = self.emailLabel.text;
+//    myVCard.mailer = self.emailLabel.text;
+    if (self.emailLabel.text.length > 0) {
+        myVCard.emailAddresses = @[self.emailLabel.text];
+    }
     
     //这个方法内部会实现数据上传到服务器
     [[WCXMPPTool sharedWCXMPPTool].vCard updateMyvCardTemp:myVCard];
