@@ -148,7 +148,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vWV-sY-bzN" userLabel="其他方式登录框容器">
                                 <rect key="frame" x="100" y="130" width="400" height="200"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zhangsan" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BKt-YB-kan" userLabel="用户名">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="13545678906" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BKt-YB-kan" userLabel="用户名">
                                         <rect key="frame" x="0.0" y="8" width="400" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="8Mb-wj-2HM"/>

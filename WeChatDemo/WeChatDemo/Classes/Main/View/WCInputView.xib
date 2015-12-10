@@ -17,20 +17,37 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AjX-hL-tIs">
+                    <rect key="frame" x="561" y="7" width="39" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="39" id="9Ns-nI-ldC"/>
+                        <constraint firstAttribute="height" constant="35" id="Tni-Yc-Xsb"/>
+                    </constraints>
+                    <state key="normal" image="TypeSelectorBtn_Black">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="AjX-hL-tIs" firstAttribute="top" secondItem="XKR-Xz-E9l" secondAttribute="top" constant="7" id="1H2-EX-hDp"/>
                 <constraint firstAttribute="trailing" secondItem="b6Y-fi-JL2" secondAttribute="trailing" constant="100" id="DHF-UP-kY4"/>
                 <constraint firstItem="b6Y-fi-JL2" firstAttribute="leading" secondItem="XKR-Xz-E9l" secondAttribute="leading" constant="50" id="EgW-kT-KXv"/>
                 <constraint firstItem="b6Y-fi-JL2" firstAttribute="top" secondItem="XKR-Xz-E9l" secondAttribute="top" constant="9" id="NeR-Ss-6Qx"/>
+                <constraint firstAttribute="centerY" secondItem="AjX-hL-tIs" secondAttribute="centerY" id="rE6-1N-nTy"/>
+                <constraint firstAttribute="trailing" secondItem="AjX-hL-tIs" secondAttribute="trailing" id="tPU-aN-AnE"/>
                 <constraint firstAttribute="bottom" secondItem="b6Y-fi-JL2" secondAttribute="bottom" constant="9" id="wLZ-Jp-rUq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="addBtn" destination="AjX-hL-tIs" id="gOi-Ue-3YN"/>
                 <outlet property="textView" destination="b6Y-fi-JL2" id="O7a-AA-idN"/>
             </connections>
             <point key="canvasLocation" x="279" y="391"/>
         </view>
     </objects>
+    <resources>
+        <image name="TypeSelectorBtn_Black" width="35" height="35"/>
+    </resources>
 </document>
