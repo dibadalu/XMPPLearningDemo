@@ -335,17 +335,6 @@ NSString *const kXMPPvCardTempElement = @"vCard";
         return @[[userID stringValue]];
     }
     
-    //1.获取email标签
-//    NSXMLElement *emailE = [self elementForName:@"EMAIL"];
-//    
-//    //2.通过EMAIL标签找到USERID
-//    NSXMLElement *userIDE = [emailE elementForName:@"USERID"];
-//    
-//    NSString *email = [userIDE stringValue];
-//    if (email.length > 0) {
-//        return @[email];
-//    }
-
     return nil;
 }
 - (void)addEmailAddress:(XMPPvCardTempEmail *)email { }
@@ -368,23 +357,7 @@ NSString *const kXMPPvCardTempElement = @"vCard";
         [email addChild:userID];
     }
     
-//    if (emails.count == 0) {
-//        return;
-//    }
-//    
-//    //1.获取email标签
-//    NSXMLElement *emailE = [self elementForName:@"EMAIL"];
-//    
-//    //2.移除USERID标签
-//    [emailE removeElementForName:@"USERID"];
-//    
-//    //3.创建新的USERID标签
-//    //只取第一个邮箱
-//    NSString *emailStr = emails[0];
-//    NSXMLElement *userIDE = [NSXMLElement elementWithName:@"USERID" xmlns:emailStr];
-//    
-//    //4.添加到EMAIL标签
-//    [emailE addChild:userIDE];
+
 
 }
 - (void)clearEmailAddresses { }

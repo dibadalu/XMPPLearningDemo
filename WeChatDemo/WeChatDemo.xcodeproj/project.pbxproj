@@ -184,6 +184,7 @@
 		54D98A801C19247D00636EAA /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A6E1C19247D00636EAA /* UIImageView+HighlightedWebCache.m */; };
 		54D98A811C19247D00636EAA /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A701C19247D00636EAA /* UIImageView+WebCache.m */; };
 		54D98A821C19247D00636EAA /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A721C19247D00636EAA /* UIView+WebCacheOperation.m */; };
+		54D98A851C195E6500636EAA /* WCHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A841C195E6500636EAA /* WCHistoryViewController.m */; };
 		54ECF03E1C15ADF100ACE600 /* WCProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */; };
 		54ECF0411C15BBC600ACE600 /* WCEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ECF0401C15BBC600ACE600 /* WCEditProfileTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -560,6 +561,8 @@
 		54D98A701C19247D00636EAA /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		54D98A711C19247D00636EAA /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		54D98A721C19247D00636EAA /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		54D98A831C195E6500636EAA /* WCHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCHistoryViewController.h; sourceTree = "<group>"; };
+		54D98A841C195E6500636EAA /* WCHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCHistoryViewController.m; sourceTree = "<group>"; };
 		54ECF03C1C15ADF100ACE600 /* WCProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCProfileViewController.h; sourceTree = "<group>"; };
 		54ECF03D1C15ADF100ACE600 /* WCProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCProfileViewController.m; sourceTree = "<group>"; };
 		54ECF03F1C15BBC600ACE600 /* WCEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCEditProfileTableViewController.h; sourceTree = "<group>"; };
@@ -602,6 +605,8 @@
 				545BE9E91C16B3A700643470 /* WCAddContactViewController.m */,
 				545BE9EB1C16C23800643470 /* WCChatViewController.h */,
 				545BE9EC1C16C23800643470 /* WCChatViewController.m */,
+				54D98A831C195E6500636EAA /* WCHistoryViewController.h */,
+				54D98A841C195E6500636EAA /* WCHistoryViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1846,6 +1851,7 @@
 				547240311C12A74A0032C084 /* XMPPSRVResolver.m in Sources */,
 				54723FE21C12A74A0032C084 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				54D98A741C19247D00636EAA /* NSData+ImageContentType.m in Sources */,
+				54D98A851C195E6500636EAA /* WCHistoryViewController.m in Sources */,
 				54D98A811C19247D00636EAA /* UIImageView+WebCache.m in Sources */,
 				547240291C12A74A0032C084 /* NSXMLElement+XEP_0297.m in Sources */,
 				547240181C12A74A0032C084 /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,

@@ -8,6 +8,8 @@
 
 #import "WCXMPPTool.h"
 
+/** 登录状态 */
+NSString *const WCLoginStatusDidChangeNotification = @"WCLoginStatusNotification";
 
 /**
  *  在代理类实现登录
@@ -80,8 +82,11 @@ singleton_implementation(WCXMPPTool);
     _msgArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:_msgStorage];
     [_msgArchiving activate:_xmppStream];
     
+    //设置socket后台运行
+    _xmppStream.enableBackgroundingOnSocket = YES;
     
-    //设置代理
+    
+    //设置代理 全局队列
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
     
     
@@ -121,6 +126,9 @@ singleton_implementation(WCXMPPTool);
     if (!_xmppStream) {
         [self setupXMPPStream];
     }
+    
+    //发送通知[正在连接]
+    [self postNotification:XMPPResultTypeConnecting];
     
     //设置JID
     //resource：标识用户登录的客户端
@@ -171,6 +179,13 @@ singleton_implementation(WCXMPPTool);
     [_xmppStream sendElement:presence];
 }
 
+#pragma mark - 通知WCLoginStatusDidChangeNotification 登录状态
+- (void)postNotification:(XMPPResultType)resultType{
+    //将登录状态放入userInfo,然后通过通知发送出去
+    NSDictionary *userInfo = @{WCLoginStatus : @(resultType)};
+    [[NSNotificationCenter defaultCenter] postNotificationName:WCLoginStatusDidChangeNotification object:nil userInfo:userInfo];
+    
+}
 
 #pragma mark - XMPPStream的代理
 #pragma mark - 与主机连接成功
@@ -192,12 +207,16 @@ singleton_implementation(WCXMPPTool);
 - (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error{
     //如果有错误，代表连接失败 如端口错误： Error Domain=NSPOSIXErrorDomain Code=61 "Connection refused" UserInfo=0x7fb43b7aa6b0 {NSLocalizedDescription=Connection refused, NSLocalizedFailureReason=Error in connect() function}
     //如果没有错误，表示正常的断开连接（人为断开）
+    WCLog(@"与主机断开连接:%@",error);
     
     if (error && _resultBlock) {
         _resultBlock(XMPPResultTypeNetErr);
     }
+    if (error) {
+        [self postNotification:XMPPResultTypeNetErr];
+    }
     
-    WCLog(@"与主机断开连接:%@",error);
+    
     
 }
 
@@ -213,6 +232,8 @@ singleton_implementation(WCXMPPTool);
     if (_resultBlock) {
         _resultBlock(XMPPResultTypeLoginSuccess);
     }
+    [self postNotification:XMPPResultTypeLoginSuccess];
+    
     
 }
 
@@ -226,6 +247,8 @@ singleton_implementation(WCXMPPTool);
     if (_resultBlock) {
         _resultBlock(XMPPResultTypeLoginFailure);
     }
+    [self postNotification:XMPPResultTypeLoginFailure];
+
     
 }
 
@@ -248,6 +271,36 @@ singleton_implementation(WCXMPPTool);
         _resultBlock(XMPPResultTypeRegisterFailure);
     }
     
+}
+
+#pragma mark - 接受到好友信息
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message{
+    WCLog(@"%@",message);
+    
+    //如果当前程序不在前台，发出一个本地通知
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+        WCLog(@"不在前台");
+    }
+    
+    //创建本地通知
+    UILocalNotification *localNoti = [[UILocalNotification alloc] init];
+    //设置内容
+    localNoti.alertBody = [NSString stringWithFormat:@"%@\n%@",message.fromStr,message.body];
+    //设置通知执行时间
+    localNoti.fireDate = [NSDate date];
+    //设置声音
+    localNoti.soundName = @"default";
+    
+    //执行本地通知
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNoti];
+    
+}
+
+#pragma mark - 判断消息是谁发送过来的
+- (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence{
+    //XMPPPresence 在线 离线
+    //presence.from 消息是谁发送过来
+    WCLog(@"%@发送消息过来了",presence.from);
 }
 
 #pragma mark - puplic method

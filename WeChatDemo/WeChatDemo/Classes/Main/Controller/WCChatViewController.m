@@ -116,7 +116,7 @@
     //垂直方向的约束
     NSArray *vContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[tableView]-0-[inputView(50)]-0-|" options:0 metrics:nil views:views];
     [self.view addConstraints:vContraints];
-    WCLog(@"%@",vContraints);
+//    WCLog(@"%@",vContraints);
     //添加inputView高度约束
     self.inputViewHeightConstraint = vContraints[2];
     //添加inputView底部约束
@@ -138,7 +138,7 @@
     //当前登录用户的JID
     //当前聊天好友的JID
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@ AND bareJidStr = %@",[WCUserInfo sharedWCUserInfo].jid,self.friendJid.bare];
-    WCLog(@"%@",pre);
+//    WCLog(@"%@",pre);
     request.predicate = pre;
     
     //时间的升序
