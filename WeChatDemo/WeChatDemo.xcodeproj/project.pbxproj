@@ -25,7 +25,6 @@
 		545BAFDE1C13038D00601509 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 545BAFDB1C13038D00601509 /* MBProgressHUD.m */; };
 		54723E4F1C12A6740032C084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E4E1C12A6740032C084 /* main.m */; };
 		54723E521C12A6740032C084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E511C12A6740032C084 /* AppDelegate.m */; };
-		54723E551C12A6740032C084 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54723E541C12A6740032C084 /* ViewController.m */; };
 		54723E581C12A6740032C084 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54723E561C12A6740032C084 /* Main.storyboard */; };
 		54723E5A1C12A6740032C084 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54723E591C12A6740032C084 /* Images.xcassets */; };
 		54723E5D1C12A6740032C084 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54723E5B1C12A6740032C084 /* LaunchScreen.xib */; };
@@ -170,6 +169,8 @@
 		549D043D1C1AA24F003156E2 /* WCInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549D043B1C1AA24F003156E2 /* WCInputView.m */; };
 		549D043E1C1AA24F003156E2 /* WCInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 549D043C1C1AA24F003156E2 /* WCInputView.xib */; };
 		549D04411C1AA2F5003156E2 /* WCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 549D04401C1AA2F5003156E2 /* WCNavigationController.m */; };
+		549D04451C1AB359003156E2 /* WCContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 549D04441C1AB359003156E2 /* WCContactCell.m */; };
+		54CA84581C1AFF28001D601A /* WCMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CA84571C1AFF28001D601A /* WCMessageModel.m */; };
 		54D98A501C19215400636EAA /* HttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A4F1C19215400636EAA /* HttpTool.m */; };
 		54D98A731C19247D00636EAA /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A531C19247C00636EAA /* MKAnnotationView+WebCache.m */; };
 		54D98A741C19247D00636EAA /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 54D98A551C19247C00636EAA /* NSData+ImageContentType.m */; };
@@ -237,8 +238,6 @@
 		54723E4E1C12A6740032C084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		54723E501C12A6740032C084 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
 		54723E511C12A6740032C084 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
-		54723E531C12A6740032C084 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		54723E541C12A6740032C084 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		54723E571C12A6740032C084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		54723E591C12A6740032C084 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		54723E5C1C12A6740032C084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -532,6 +531,10 @@
 		549D043C1C1AA24F003156E2 /* WCInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WCInputView.xib; sourceTree = "<group>"; };
 		549D043F1C1AA2F5003156E2 /* WCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNavigationController.h; sourceTree = "<group>"; };
 		549D04401C1AA2F5003156E2 /* WCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNavigationController.m; sourceTree = "<group>"; };
+		549D04431C1AB359003156E2 /* WCContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCContactCell.h; sourceTree = "<group>"; };
+		549D04441C1AB359003156E2 /* WCContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCContactCell.m; sourceTree = "<group>"; };
+		54CA84561C1AFF28001D601A /* WCMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMessageModel.h; sourceTree = "<group>"; };
+		54CA84571C1AFF28001D601A /* WCMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCMessageModel.m; sourceTree = "<group>"; };
 		54D98A4E1C19215400636EAA /* HttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpTool.h; sourceTree = "<group>"; };
 		54D98A4F1C19215400636EAA /* HttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpTool.m; sourceTree = "<group>"; };
 		54D98A521C19247C00636EAA /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -720,8 +723,6 @@
 			isa = PBXGroup;
 			children = (
 				54723E721C12A74A0032C084 /* Classes */,
-				54723E531C12A6740032C084 /* ViewController.h */,
-				54723E541C12A6740032C084 /* ViewController.m */,
 				54723E591C12A6740032C084 /* Images.xcassets */,
 				54723E5B1C12A6740032C084 /* LaunchScreen.xib */,
 				54723E4C1C12A6740032C084 /* Supporting Files */,
@@ -1578,10 +1579,10 @@
 		549D041E1C1AA0F1003156E2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				549D042D1C1AA1DB003156E2 /* WCAddContactViewController.h */,
-				549D042E1C1AA1DB003156E2 /* WCAddContactViewController.m */,
 				549D042F1C1AA1DB003156E2 /* WCContactsViewController.h */,
 				549D04301C1AA1DB003156E2 /* WCContactsViewController.m */,
+				549D042D1C1AA1DB003156E2 /* WCAddContactViewController.h */,
+				549D042E1C1AA1DB003156E2 /* WCAddContactViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1614,6 +1615,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		549D04421C1AB33B003156E2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				549D04431C1AB359003156E2 /* WCContactCell.h */,
+				549D04441C1AB359003156E2 /* WCContactCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		54B50FC91C1A877400FF1D1E /* Me(我) */ = {
 			isa = PBXGroup;
 			children = (
@@ -1635,6 +1645,7 @@
 		54B50FCB1C1A879E00FF1D1E /* Contacts(通讯录) */ = {
 			isa = PBXGroup;
 			children = (
+				549D04421C1AB33B003156E2 /* View */,
 				549D041E1C1AA0F1003156E2 /* Controller */,
 			);
 			name = "Contacts(通讯录)";
@@ -1653,6 +1664,7 @@
 		54B50FCD1C1A880000FF1D1E /* Chat(聊天) */ = {
 			isa = PBXGroup;
 			children = (
+				54CA84551C1AFF0C001D601A /* Model */,
 				549D04391C1AA24F003156E2 /* View */,
 				549D04201C1AA109003156E2 /* Controller */,
 			);
@@ -1671,6 +1683,15 @@
 				549D04241C1AA14B003156E2 /* WCProfileViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		54CA84551C1AFF0C001D601A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				54CA84561C1AFF28001D601A /* WCMessageModel.h */,
+				54CA84571C1AFF28001D601A /* WCMessageModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		54D98A4D1C19213300636EAA /* Tool */ = {
@@ -1845,6 +1866,7 @@
 				54D98A781C19247D00636EAA /* SDWebImageDownloader.m in Sources */,
 				54723FC91C12A74A0032C084 /* NSData+XMPP.m in Sources */,
 				54723FD91C12A74A0032C084 /* XMPPGroupCoreDataStorageObject.m in Sources */,
+				54CA84581C1AFF28001D601A /* WCMessageModel.m in Sources */,
 				547240191C12A74A0032C084 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				54723FF01C12A74A0032C084 /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				547240071C12A74A0032C084 /* XMPPPubSub.m in Sources */,
@@ -1855,7 +1877,6 @@
 				5472401B1C12A74A0032C084 /* XMPPvCardAvatarModule.m in Sources */,
 				54723FF91C12A74A0032C084 /* XMPPvCardCoreDataStorage.m in Sources */,
 				54723FF31C12A74A0032C084 /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
-				54723E551C12A6740032C084 /* ViewController.m in Sources */,
 				547240121C12A74A0032C084 /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				54723FFD1C12A74A0032C084 /* XMPPvCardTempAdr.m in Sources */,
 				54723E521C12A6740032C084 /* AppDelegate.m in Sources */,
@@ -1924,6 +1945,7 @@
 				5432BFC91C1421CD004FC63A /* WCRegisterViewController.m in Sources */,
 				54723FF81C12A74A0032C084 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				54723FE91C12A74A0032C084 /* XMPPRoom.xcdatamodeld in Sources */,
+				549D04451C1AB359003156E2 /* WCContactCell.m in Sources */,
 				547240381C12A74A0032C084 /* DDTTYLogger.m in Sources */,
 				547240311C12A74A0032C084 /* XMPPSRVResolver.m in Sources */,
 				54723FE21C12A74A0032C084 /* XMPPSystemInputActivityMonitor.m in Sources */,

@@ -8,11 +8,14 @@
 
 #import "WCContactsViewController.h"
 #import "WCChatViewController.h"
+#import "UIImageView+WebCache.h"
+#import "WCContactCell.h"
 
 @interface WCContactsViewController ()<NSFetchedResultsControllerDelegate>{
     
     NSFetchedResultsController *_resultsController;//可以监听数据库的改变
 }
+
 
 @property(nonatomic,strong) NSArray *friends;
 
@@ -24,7 +27,7 @@
     [super viewDidLoad];
     
     //从数据库里加载好友列表显示
-    [self loadFriends2];
+    [self loadFriends];
    
 }
 
@@ -49,34 +52,6 @@
     request.sortDescriptors = @[sort];
     
     //4.执行请求获取数据
-    self.friends = [context executeFetchRequest:request error:nil];
-    WCLog(@"%@",self.friends);
-    
-    
-}
-
-- (void)loadFriends2{
-    
-    //如何使用CoreData获取数据
-    //1.上下文[关联到数据XMPPRoster.sqlite]
-    NSManagedObjectContext *context = [WCXMPPTool sharedWCXMPPTool].rosterStorage.mainThreadManagedObjectContext;
-    
-    //2.FetchRequest[查哪张表]
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"XMPPUserCoreDataStorageObject"];
-    
-    //3.设置过滤和排序
-    //过滤当前登录用户的好友
-    NSString *jid = [WCUserInfo sharedWCUserInfo].jid;
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@",jid];
-    request.predicate = pre;
-    
-    //排序
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"displayName" ascending:YES];
-    request.sortDescriptors = @[sort];
-    
-    //4.执行请求获取数据
-//    self.friends = [context executeFetchRequest:request error:nil];
-//    WCLog(@"%@",self.friends);
     _resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     _resultsController.delegate = self;//设置代理
     NSError *error = nil;
@@ -98,25 +73,24 @@
 
 #pragma mark - tableView 数据源
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return self.friends.count;
+
     return _resultsController.fetchedObjects.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ID = @"ContactCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
-    
+    //创建cell
+    WCContactCell *cell = [WCContactCell cellWithTableView:tableView];
+    //获取对应的好友
+    XMPPUserCoreDataStorageObject *friend = _resultsController.fetchedObjects[indexPath.row];
+    cell.headerView.image = [UIImage imageNamed:@"DefaultHead"];
+    cell.friendLabel.text = friend.jidStr;
     //sectionNum
     // 0 - 在线
     // 1 - 离开
     // 2 - 离线
-    
-    //获取对应的好友
-//    XMPPUserCoreDataStorageObject *friend = self.friends[indexPath.row];
-    XMPPUserCoreDataStorageObject *friend = _resultsController.fetchedObjects[indexPath.row];
     switch ([friend.sectionNum intValue]) {
         case 0:
             cell.detailTextLabel.text = @"在线";
@@ -128,11 +102,12 @@
             cell.detailTextLabel.text = @"离线";
             break;
     }
-    cell.textLabel.text = friend.jidStr;
-
     
     return cell;
 }
+
+
+
 
 #pragma mark - tableView代理方法
 #pragma mark - 实现这个方法，cell往左滑就有个delete

@@ -10,10 +10,11 @@
 #import "WCInputView.h"
 #import "HttpTool.h"
 #import "UIImageView+WebCache.h"
+#import "WCMessageModel.h"
 
 @interface WCChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,UITextViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
     
-    NSFetchedResultsController *_resultsController;//监听消息
+    NSFetchedResultsController *_resultsController;
     
 }
 
@@ -24,11 +25,14 @@
 
 @property(nonatomic,strong) HttpTool *httpTool;//http工具类
 
+/** 消息模型数组：每一个模型存放一条消息 */
+@property(nonatomic,strong) NSMutableArray *msgModels;
+
 
 @end
 
 @implementation WCChatViewController
-
+#pragma mark - lazy method
 - (HttpTool *)httpTool{
 
     if (!_httpTool) {
@@ -38,51 +42,39 @@
     
 }
 
+- (NSMutableArray *)msgModels{
+    if (!_msgModels) {
+        _msgModels = [NSMutableArray array];
+    }
+    return _msgModels;
+}
 
+#pragma mark - system method
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     //初始化聊天界面
     [self setupView];
     
+    //加载聊天消息数据
+    [self loadMsg];
+    
     // 监听键盘
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    //加载聊天消息数据
-    [self loadMsg];
 }
 
-#pragma mark - 监听键盘
-#pragma mark - 显示键盘
-- (void)keyboardWillShow:(NSNotification *)noti{
-//    NSLog(@"%@",noti.userInfo);
-    //获取键盘的高度
-    CGRect kyEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat kyHeight = kyEndFrm.size.height;
-
-#warning iOS7以下，当屏幕是横屏时，键盘的高度是size.width
-    if ([[UIDevice currentDevice].systemVersion doubleValue] < 8.0 && UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-        kyHeight = kyEndFrm.size.width;
-    }
-    self.inputViewBottomConstraint.constant = kyHeight;
-    
-    //表格滚动到底部
-    [self scrollToTableBottom];
-    
-}
-#pragma mark - 隐藏键盘
-- (void)keyboardWillHide:(NSNotification *)noti{
-    //隐藏键盘的时候，距离底部的约束永远为0
-    self.inputViewBottomConstraint.constant = 0;
-}
-
-#pragma mark - 代码方式实现自动布局 VFL
+#pragma mark - init method
+/**
+ *  初始化聊天界面: 代码方式实现自动布局 VFL
+ */
 - (void)setupView{
     //代码方式实现自动布局 VFL
     //创建一个tableView
     UITableView *tableView = [[UITableView alloc] init];
-//    tableView.backgroundColor = [UIColor redColor];
+    //    tableView.backgroundColor = [UIColor redColor];
+    tableView.allowsSelection = NO;//cell不可选中
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉分割线
     tableView.delegate = self;
     tableView.dataSource = self;
 #warning 代码实现自动布局，要设置下面的属性为NO
@@ -116,7 +108,7 @@
     //垂直方向的约束
     NSArray *vContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[tableView]-0-[inputView(50)]-0-|" options:0 metrics:nil views:views];
     [self.view addConstraints:vContraints];
-//    WCLog(@"%@",vContraints);
+    //    WCLog(@"%@",vContraints);
     //添加inputView高度约束
     self.inputViewHeightConstraint = vContraints[2];
     //添加inputView底部约束
@@ -125,9 +117,12 @@
     
 }
 
-#pragma mark - 加载XMPPMessageArchiving数据库的数据显示在表格
+/**
+ *  加载聊天消息数据(XMPPMessageArchiving数据库)
+ */
 - (void)loadMsg{
     
+    //从CoreData数据库获取数据
     //上下文
     NSManagedObjectContext *context = [WCXMPPTool sharedWCXMPPTool].msgStorage.mainThreadManagedObjectContext;
     
@@ -138,7 +133,7 @@
     //当前登录用户的JID
     //当前聊天好友的JID
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@ AND bareJidStr = %@",[WCUserInfo sharedWCUserInfo].jid,self.friendJid.bare];
-//    WCLog(@"%@",pre);
+    //    WCLog(@"%@",pre);
     request.predicate = pre;
     
     //时间的升序
@@ -153,146 +148,89 @@
     if (error) {
         WCLog(@"%@",error);
     }
+    if (_resultsController.fetchedObjects.count) {//有聊天数据
         
-}
-
-#pragma mark - tableView数据源
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return _resultsController.fetchedObjects.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *ID = @"ChatCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    
-    //获取聊天消息对象
-    XMPPMessageArchiving_Message_CoreDataObject *msg = _resultsController.fetchedObjects[indexPath.row];
-    
-    //显示消息
-    if ([msg.outgoing boolValue]) {//YES 自己发的
-        NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
-        //判断是图片还是纯文本
-        if ([chatType isEqualToString:@"image"]) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
-        }else if ([chatType isEqualToString:@"text"]){
-            cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msg.body];
-        }
+        //1.消息转模型
+        [self dataToModel];
         
-    }else{//NO 别人发的
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msg.body];
-#warning 注意清空image ,另外spark客户端无法演示发送图片
-        cell.imageView.image = nil;
-    }
-    
-    return cell;
-}
-
-#pragma mark - tableView代理方法
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    
-    [self.view endEditing:YES];
-}
-
-#pragma mark - NSFetchedResultsControllerDelegate 监听消息
-#pragma mark - 当数据库的内容发生改变，会调用这个方法
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
-    
-    WCLog(@"数据库的内容发生改变");
-    
-    //刷新数据
-    [self.tableView reloadData];
-    //滚动到底部
-    [self scrollToTableBottom];
-    
-}
-
-#pragma mark - UITextViewDelegate
-- (void)textViewDidChange:(UITextView *)textView{
-    
-//    WCLog(@"%@",textView.text);
-    //获取contentSize
-    CGSize size = textView.contentSize;
-    CGFloat contentH = size.height;
-//    WCLog(@"textView的contentSize的高度%f",contentH);
-    
-    //粗略判断，设置inputView的高度最大为3行
-    if (contentH > 33 && contentH < 67) {//大于33，超过1行的高度,小于67，高度在3行内
-        self.inputViewHeightConstraint.constant = contentH + 18;
-    }
-    
-    NSString *text = textView.text;
-    //换行就等于点击了send
-    if ([text rangeOfString:@"\n"].length != 0) {
-        WCLog(@"发送数据：%@",text);
-        
-        //去除换行字符
-        text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        [self sendMsgWithText:text bodyType:@"text"];
-        //清空textView
-        textView.text = nil;
-        
-        //发送完消息，inputView高度变回50
-        self.inputViewHeightConstraint.constant = 50;
-
-    }else{
-        WCLog(@"输入数据：%@",textView.text);
+        //2.滚动到底部
+        [self scrollToTableBottom];
     }
     
 }
 
-#pragma mark - 发送聊天消息
-- (void)sendMsgWithText:(NSString *)text bodyType:(NSString *)bodyType{
+#pragma mark - 消息转模型
+- (void)dataToModel{
     
-    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendJid];
-    
-    //text 纯文本
-    //image 图片
-    [msg addAttributeWithName:@"bodyType" stringValue:bodyType];
-    //设置内容
-    [msg addBody:text];
-    WCLog(@"%@",msg);
-    [[WCXMPPTool sharedWCXMPPTool].xmppStream sendElement:msg];
+    //获取聊天消息数组
+    NSArray *msgs = _resultsController.fetchedObjects;
+    //遍历聊天消息数组，将消息转换成模型
+    for (XMPPMessageArchiving_Message_CoreDataObject *msg in msgs) {
+        WCMessageModel *msgModel = [[WCMessageModel alloc] init];
+        msgModel.body = msg.body;
+        WCLog(@"%@",msgModel.body);
+        msgModel.isCurrentUser = [msg.outgoing boolValue];//标记是否当前用户发送的
+        
+        //将消息模型放进消息模型数组
+        [self.msgModels addObject:msgModel];
+    }
     
 }
 
-#pragma mark - 滚动到底部
-- (void)scrollToTableBottom{
-    
-    NSInteger lastRow = _resultsController.fetchedObjects.count - 1;
-    if (lastRow < 0) {//如果行数小于0，不能滚动
-        return;
-    }
-    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
-    
-    [self.tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-}
 
 #pragma mark - action method
+/**
+ *  即将显示键盘
+ */
+- (void)keyboardWillShow:(NSNotification *)noti{
+    
+//    NSLog(@"%@",noti.userInfo);
+    //获取键盘的高度
+    CGRect kyEndFrm = [noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat kyHeight = kyEndFrm.size.height;
+
+#warning iOS7以下，当屏幕是横屏时，键盘的高度是size.width
+    if ([[UIDevice currentDevice].systemVersion doubleValue] < 8.0 && UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        kyHeight = kyEndFrm.size.width;
+    }
+    self.inputViewBottomConstraint.constant = kyHeight;
+    
+    
+    
+}
+/**
+ *  即将隐藏键盘
+ */
+- (void)keyboardWillHide:(NSNotification *)noti{
+    //隐藏键盘的时候，距离底部的约束永远为0
+    self.inputViewBottomConstraint.constant = 0;
+}
+
+
+
+/**
+ *  选中“+”号按钮，触发监听事件
+ */
 - (void)addBtnClick{
+    
+    //打开图库
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-#pragma mark - UIImagePickerControllerDelegate 图库
+#pragma mark - UIImagePickerControllerDelegate
 /**
  *  选择完图片调用
  */
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
-//    WCLog(@"%@",info);
-//    UIImagePickerControllerOriginalImage
+    //    WCLog(@"%@",info);
+    //    UIImagePickerControllerOriginalImage
     //获取图片
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-
+    
     //把图片发送到文件服务器
     /*
      *put
@@ -323,6 +261,166 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+#pragma mark - UITextViewDelegate代理方法
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    //    WCLog(@"%@",textView.text);
+    //获取contentSize
+    CGSize size = textView.contentSize;
+    CGFloat contentH = size.height;
+    //    WCLog(@"textView的contentSize的高度%f",contentH);
+    
+    //粗略判断，设置inputView的高度最大为3行
+    if (contentH > 33 && contentH < 67) {//大于33，超过1行的高度,小于67，高度在3行内
+        self.inputViewHeightConstraint.constant = contentH + 18;
+    }
+    
+    NSString *text = textView.text;
+    //换行就等于点击了send
+    if ([text rangeOfString:@"\n"].length != 0) {
+        WCLog(@"发送数据：%@",text);
+        
+        //去除换行字符
+        text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        [self sendMsgWithText:text bodyType:@"text"];
+        //清空textView
+        textView.text = nil;
+        
+        //发送完消息，inputView高度变回50
+        self.inputViewHeightConstraint.constant = 50;
+        
+    }else{
+        WCLog(@"输入数据：%@",textView.text);
+        
+    }
+    
+}
+
+/**
+ *  发送聊天消息
+ *
+ *  @param text     内容
+ *  @param bodyType 内容类型（text、image）
+ */
+- (void)sendMsgWithText:(NSString *)text bodyType:(NSString *)bodyType{
+    
+    //创建消息对象，并指定好友jid
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendJid];
+    //设置内容类型
+    [msg addAttributeWithName:@"bodyType" stringValue:bodyType];
+    //设置内容
+    [msg addBody:text];
+    //    WCLog(@"%@",msg);
+    //发送聊天消息
+    [[WCXMPPTool sharedWCXMPPTool].xmppStream sendElement:msg];
+    
+}
+
+#pragma mark - tableView数据源
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+//    return _resultsController.fetchedObjects.count;
+    return self.msgModels.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *ID = @"ChatCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    
+    //获取聊天消息对象
+//    XMPPMessageArchiving_Message_CoreDataObject *msg = _resultsController.fetchedObjects[indexPath.row];
+//    //显示消息
+//    if ([msg.outgoing boolValue]) {//YES 自己发的
+//        NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
+//        //判断是图片还是纯文本
+//        if ([chatType isEqualToString:@"image"]) {
+//            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
+//        }else if ([chatType isEqualToString:@"text"]){
+//            cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msg.body];
+//        }
+//    }else{//NO 别人发的
+//        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msg.body];
+//#warning 注意清空image ,另外spark客户端无法演示发送图片
+//        cell.imageView.image = nil;
+//    }
+    
+    //获取消息模型
+    WCMessageModel *msgModel = _msgModels[indexPath.row];
+    //判断消息是否是当前用户发的
+    if (msgModel.isCurrentUser) {//是当前用户
+        cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msgModel.body];
+    }else{//别人发的
+        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msgModel.body];
+    }
+    
+    return cell;
+}
+
+
+
+#pragma mark - tableView代理方法
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+    [self.view endEditing:YES];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate代理方法
+/**
+ *  当数据库的内容发生改变，会调用这个方法
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
+    
+    WCLog(@"数据库的内容发生改变");
+    
+    XMPPMessageArchiving_Message_CoreDataObject *msg = [_resultsController.fetchedObjects lastObject];
+    //将消息转换成模型
+    [self dataToModelWith:msg];
+        
+}
+
+#pragma mark - 将消息转换成模型
+- (void)dataToModelWith:(XMPPMessageArchiving_Message_CoreDataObject *)msg{
+    
+    
+    if (msg.body.length > 0) {//有内容
+        //将消息转换成模型，并存进消息模型数组
+        WCMessageModel *msgModel = [[WCMessageModel alloc] init];
+        msgModel.body = msg.body;
+        WCLog(@"%@",msgModel.body);
+        msgModel.isCurrentUser = [msg.outgoing boolValue];//标记是否当前用户发送的
+        
+        //将消息模型放进消息模型数组
+        [self.msgModels addObject:msgModel];
+        
+        //刷新表格
+        [self.tableView reloadData];
+        
+        //滚动到底部
+        [self scrollToTableBottom];
+        
+    }
+    
+}
+
+/**
+ *  滚动到底部
+ */
+- (void)scrollToTableBottom{
+    
+    NSInteger lastRow = _resultsController.fetchedObjects.count - 1;
+    if (lastRow < 0) {//如果行数小于0，不能滚动
+        return;
+    }
+    NSIndexPath *lastPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+    
+    [self.tableView scrollToRowAtIndexPath:lastPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 @end
