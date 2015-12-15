@@ -4,7 +4,7 @@
 //
 //  Created by 陈泽嘉 on 15/12/11.
 //  Copyright (c) 2015年 dibadalu. All rights reserved.
-//
+//  数据模型：存放数据和图片
 
 #import <Foundation/Foundation.h>
 
@@ -12,8 +12,6 @@
 
 /** 消息内容 */
 @property (nonatomic, strong) NSString * body;
-
-
 /** 带属性的消息内容 */
 @property (nonatomic, copy) NSAttributedString *attributedBody;
 /** 消息的时间 */
@@ -30,5 +28,6 @@
 @property (nonatomic,strong) NSData *headImage;
 /** 是否隐藏时间 */
 @property (nonatomic,assign) BOOL hiddenTime;
+
 
 @end

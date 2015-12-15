@@ -11,6 +11,10 @@
 #import "HttpTool.h"
 #import "UIImageView+WebCache.h"
 #import "WCMessageModel.h"
+#import "WCMessageModelFrame.h"
+#import "WCMessageCell.h"
+#import "XMPPvCardTemp.h"
+
 
 @interface WCChatViewController ()<UITableViewDataSource,UITableViewDelegate,NSFetchedResultsControllerDelegate,UITextViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
     
@@ -25,14 +29,14 @@
 
 @property(nonatomic,strong) HttpTool *httpTool;//http工具类
 
-/** 消息模型数组：每一个模型存放一条消息 */
-@property(nonatomic,strong) NSMutableArray *msgModels;
+/** 消息frame模型数组：每一个frame模型存放一条消息 */
+@property(nonatomic,strong) NSMutableArray *msgModelFrames;
 
 
 @end
 
 @implementation WCChatViewController
-#pragma mark - lazy method
+#pragma mark - 懒方法
 - (HttpTool *)httpTool{
 
     if (!_httpTool) {
@@ -42,14 +46,14 @@
     
 }
 
-- (NSMutableArray *)msgModels{
-    if (!_msgModels) {
-        _msgModels = [NSMutableArray array];
+- (NSMutableArray *)msgModelFrames{
+    if (!_msgModelFrames) {
+        _msgModelFrames = [NSMutableArray array];
     }
-    return _msgModels;
+    return _msgModelFrames;
 }
 
-#pragma mark - system method
+#pragma mark - 系统方法
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -64,9 +68,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-#pragma mark - init method
+#pragma mark - 初始化聊天界面
 /**
- *  初始化聊天界面: 代码方式实现自动布局 VFL
+ * 代码方式实现自动布局 VFL
  */
 - (void)setupView{
     //代码方式实现自动布局 VFL
@@ -117,8 +121,9 @@
     
 }
 
+#pragma mark - 加载聊天消息数据
 /**
- *  加载聊天消息数据(XMPPMessageArchiving数据库)
+ *  XMPPMessageArchiving数据库
  */
 - (void)loadMsg{
     
@@ -168,17 +173,22 @@
     for (XMPPMessageArchiving_Message_CoreDataObject *msg in msgs) {
         WCMessageModel *msgModel = [[WCMessageModel alloc] init];
         msgModel.body = msg.body;
-        WCLog(@"%@",msgModel.body);
+        msgModel.time = [NSString stringWithFormat:@"%@",msg.timestamp];
+        msgModel.to = msg.bareJidStr;
+//        msgModel.otherPhoto = self.photo; //聊天用户的头像
+        msgModel.headImage = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp.photo;//登录用户的头像
+        msgModel.hiddenTime = YES; //隐藏时间
         msgModel.isCurrentUser = [msg.outgoing boolValue];//标记是否当前用户发送的
         
+        WCMessageModelFrame *modelFrame = [[WCMessageModelFrame alloc] init];
+        modelFrame.messageModel = msgModel;
         //将消息模型放进消息模型数组
-        [self.msgModels addObject:msgModel];
+        [self.msgModelFrames addObject:modelFrame];
     }
     
 }
 
-
-#pragma mark - action method
+#pragma mark - 键盘的触发事件
 /**
  *  即将显示键盘
  */
@@ -195,8 +205,6 @@
     }
     self.inputViewBottomConstraint.constant = kyHeight;
     
-    
-    
 }
 /**
  *  即将隐藏键盘
@@ -205,7 +213,6 @@
     //隐藏键盘的时候，距离底部的约束永远为0
     self.inputViewBottomConstraint.constant = 0;
 }
-
 
 
 /**
@@ -220,7 +227,7 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-#pragma mark - UIImagePickerControllerDelegate
+#pragma mark - UIImagePickerControllerDelegate 系统图库方法
 /**
  *  选择完图片调用
  */
@@ -323,44 +330,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
 //    return _resultsController.fetchedObjects.count;
-    return self.msgModels.count;
+    return self.msgModelFrames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ID = @"ChatCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    
-    //获取聊天消息对象
-//    XMPPMessageArchiving_Message_CoreDataObject *msg = _resultsController.fetchedObjects[indexPath.row];
-//    //显示消息
-//    if ([msg.outgoing boolValue]) {//YES 自己发的
-//        NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
-//        //判断是图片还是纯文本
-//        if ([chatType isEqualToString:@"image"]) {
-//            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
-//        }else if ([chatType isEqualToString:@"text"]){
-//            cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msg.body];
-//        }
-//    }else{//NO 别人发的
-//        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msg.body];
-//#warning 注意清空image ,另外spark客户端无法演示发送图片
-//        cell.imageView.image = nil;
-//    }
-    
-    //获取消息模型
-    WCMessageModel *msgModel = _msgModels[indexPath.row];
-    //判断消息是否是当前用户发的
-    if (msgModel.isCurrentUser) {//是当前用户
-        cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msgModel.body];
-    }else{//别人发的
-        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msgModel.body];
-    }
+    //创建cell
+    WCMessageCell *cell = [WCMessageCell messageCellWithTableView:tableView];
+    WCMessageModelFrame *msgModelFrame = self.msgModelFrames[indexPath.row];//取出frame数据模型
+    //传递给cell
+    cell.messageModelFrame = msgModelFrame;
     
     return cell;
+    
 }
 
 
@@ -393,11 +375,18 @@
         //将消息转换成模型，并存进消息模型数组
         WCMessageModel *msgModel = [[WCMessageModel alloc] init];
         msgModel.body = msg.body;
-        WCLog(@"%@",msgModel.body);
+        msgModel.time = [NSString stringWithFormat:@"%@",msg.timestamp];
+        msgModel.to = msg.bareJidStr;
+        //        msgModel.otherPhoto = self.photo; //聊天用户的头像
+        msgModel.headImage = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp.photo;//登录用户的头像
+        msgModel.hiddenTime = YES; //隐藏时间
         msgModel.isCurrentUser = [msg.outgoing boolValue];//标记是否当前用户发送的
         
+        WCMessageModelFrame *modelFrame = [[WCMessageModelFrame alloc] init];
+        modelFrame.messageModel = msgModel;
         //将消息模型放进消息模型数组
-        [self.msgModels addObject:msgModel];
+        [self.msgModelFrames addObject:modelFrame];
+
         
         //刷新表格
         [self.tableView reloadData];
@@ -424,3 +413,32 @@
 }
 
 @end
+
+
+//获取聊天消息对象
+//    XMPPMessageArchiving_Message_CoreDataObject *msg = _resultsController.fetchedObjects[indexPath.row];
+//    //显示消息
+//    if ([msg.outgoing boolValue]) {//YES 自己发的
+//        NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
+//        //判断是图片还是纯文本
+//        if ([chatType isEqualToString:@"image"]) {
+//            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:msg.body] placeholderImage:[UIImage imageNamed:@"DefaultProfileHead_qq"]];
+//        }else if ([chatType isEqualToString:@"text"]){
+//            cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msg.body];
+//        }
+//    }else{//NO 别人发的
+//        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msg.body];
+//#warning 注意清空image ,另外spark客户端无法演示发送图片
+//        cell.imageView.image = nil;
+//    }
+
+//获取消息模型
+//    WCMessageModelFrame *msgModelFrame = self.msgModelFrames[indexPath.row];
+//    WCMessageModel *msgModel = msgModelFrame.messageModel;//取出数据模型
+//    //判断消息是否是当前用户发的
+//    if (msgModel.isCurrentUser) {//是当前用户
+//        cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msgModel.body];
+//    }else{//别人发的
+//        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msgModel.body];
+//    }
+
