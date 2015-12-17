@@ -130,7 +130,7 @@
     //获取好友
     XMPPUserCoreDataStorageObject *friend = _resultsController.fetchedObjects[indexPath.row];
     //Chatsegue
-    [self performSegueWithIdentifier:@"Chatsegue" sender:friend.jid];
+    [self performSegueWithIdentifier:@"Chatsegue" sender:friend];
     
     
 }
@@ -143,7 +143,7 @@
     
     if ([destVc isKindOfClass:[WCChatViewController class]]) {
         WCChatViewController *chatVc = destVc;
-        chatVc.friendJid = sender;
+        chatVc.friendStorage = sender;
     }
 }
 

@@ -23,7 +23,7 @@
     static NSString *ID = @"ChatCell";
     WCMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        cell = [[WCMessageCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[WCMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
     return cell;
@@ -33,10 +33,10 @@
 #pragma mark - 添加所有可能显示的子控件，并设置一次性属性
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     
-    
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+//        self.backgroundColor = [UIColor yellowColor];
         //添加子控件
         [self setChirdView];
         

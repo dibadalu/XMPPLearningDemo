@@ -11,7 +11,7 @@
 
 @interface WCChatViewController : UIViewController
 
-/** 好友JID */
-@property(nonatomic,strong) XMPPJID *friendJid;
+/** 好友的数据存储 */
+@property(nonatomic,strong) XMPPUserCoreDataStorageObject *friendStorage;
 
 @end

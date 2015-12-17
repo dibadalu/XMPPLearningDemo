@@ -77,7 +77,7 @@
         <scene sceneID="61j-9N-Um1">
             <objects>
                 <navigationController id="oJ7-Rl-Ers" userLabel="微信Nav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="微信" image="tabbar_mainframe" badgeValue="1" id="XLd-Ju-zen"/>
+                    <tabBarItem key="tabBarItem" title="微信" image="tabbar_mainframe" id="XLd-Ju-zen"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pWH-bK-0XV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -613,7 +613,7 @@
         <scene sceneID="k7V-ko-46r">
             <objects>
                 <navigationController id="sQd-4S-FkN" userLabel="发现Nav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="发现" image="tabbar_discover" badgeValue="2" id="fkB-Je-YrY"/>
+                    <tabBarItem key="tabBarItem" title="发现" image="tabbar_discover" id="fkB-Je-YrY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vSa-k4-pvM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -630,7 +630,7 @@
         <scene sceneID="pfw-gP-h1e">
             <objects>
                 <navigationController id="t4F-co-XUn" userLabel="通讯录Nav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="通讯录" image="tabbar_contacts" badgeValue="23" id="1iR-kj-SrM"/>
+                    <tabBarItem key="tabBarItem" title="通讯录" image="tabbar_contacts" id="1iR-kj-SrM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d9U-re-ioV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

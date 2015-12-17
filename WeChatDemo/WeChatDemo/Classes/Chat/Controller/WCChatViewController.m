@@ -93,7 +93,6 @@
     inputView.textView.delegate = self;
     //监听add按钮
     [inputView.addBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.view addSubview:inputView];
     
     
@@ -137,7 +136,8 @@
     //过滤和排序
     //当前登录用户的JID
     //当前聊天好友的JID
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@ AND bareJidStr = %@",[WCUserInfo sharedWCUserInfo].jid,self.friendJid.bare];
+//    NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@ AND bareJidStr = %@",[WCUserInfo sharedWCUserInfo].jid,self.friendJid.bare];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@ AND bareJidStr = %@",[WCUserInfo sharedWCUserInfo].jid,self.friendStorage.jid.bare];
     //    WCLog(@"%@",pre);
     request.predicate = pre;
     
@@ -173,11 +173,11 @@
     for (XMPPMessageArchiving_Message_CoreDataObject *msg in msgs) {
         WCMessageModel *msgModel = [[WCMessageModel alloc] init];
         msgModel.body = msg.body;
-        msgModel.time = [NSString stringWithFormat:@"%@",msg.timestamp];
+        msgModel.time = [self timeStrWithTimeDate:msg.timestamp];
         msgModel.to = msg.bareJidStr;
-//        msgModel.otherPhoto = self.photo; //聊天用户的头像
+        msgModel.otherPhoto = self.friendStorage.photo;//聊天用户的头像
         msgModel.headImage = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp.photo;//登录用户的头像
-        msgModel.hiddenTime = YES; //隐藏时间
+        msgModel.hiddenTime = NO; //隐藏时间
         msgModel.isCurrentUser = [msg.outgoing boolValue];//标记是否当前用户发送的
         
         WCMessageModelFrame *modelFrame = [[WCMessageModelFrame alloc] init];
@@ -186,6 +186,21 @@
         [self.msgModelFrames addObject:modelFrame];
     }
     
+}
+
+/**
+ *  设置日期格式，并返回time字符串
+ */
+- (NSString *)timeStrWithTimeDate:(NSDate *)date{
+    
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    //如果是真机调试，转换欧美时间，需要设置locale
+    fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    //设置日期格式（声明字符串里面每个数字和单词的含义）
+    fmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString *timeStr = [fmt stringFromDate:date];
+    
+    return timeStr;
 }
 
 #pragma mark - 键盘的触发事件
@@ -315,7 +330,8 @@
 - (void)sendMsgWithText:(NSString *)text bodyType:(NSString *)bodyType{
     
     //创建消息对象，并指定好友jid
-    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendJid];
+//    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendJid];
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:self.friendStorage.jid];
     //设置内容类型
     [msg addAttributeWithName:@"bodyType" stringValue:bodyType];
     //设置内容
@@ -353,6 +369,13 @@
     [self.view endEditing:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    WCMessageModelFrame *msgModelFrame = self.msgModelFrames[indexPath.row];
+    return msgModelFrame.cellHeight;
+    
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate代理方法
 /**
  *  当数据库的内容发生改变，会调用这个方法
@@ -375,11 +398,13 @@
         //将消息转换成模型，并存进消息模型数组
         WCMessageModel *msgModel = [[WCMessageModel alloc] init];
         msgModel.body = msg.body;
-        msgModel.time = [NSString stringWithFormat:@"%@",msg.timestamp];
+//        msgModel.time = [NSString stringWithFormat:@"%@",msg.timestamp];
+        msgModel.time = [self timeStrWithTimeDate:msg.timestamp];
+
         msgModel.to = msg.bareJidStr;
-        //        msgModel.otherPhoto = self.photo; //聊天用户的头像
+        msgModel.otherPhoto = self.friendStorage.photo;//聊天用户的头像
         msgModel.headImage = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp.photo;//登录用户的头像
-        msgModel.hiddenTime = YES; //隐藏时间
+        msgModel.hiddenTime = NO; //隐藏时间
         msgModel.isCurrentUser = [msg.outgoing boolValue];//标记是否当前用户发送的
         
         WCMessageModelFrame *modelFrame = [[WCMessageModelFrame alloc] init];
@@ -430,15 +455,5 @@
 //        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msg.body];
 //#warning 注意清空image ,另外spark客户端无法演示发送图片
 //        cell.imageView.image = nil;
-//    }
-
-//获取消息模型
-//    WCMessageModelFrame *msgModelFrame = self.msgModelFrames[indexPath.row];
-//    WCMessageModel *msgModel = msgModelFrame.messageModel;//取出数据模型
-//    //判断消息是否是当前用户发的
-//    if (msgModel.isCurrentUser) {//是当前用户
-//        cell.textLabel.text = [NSString stringWithFormat:@"Me: %@",msgModel.body];
-//    }else{//别人发的
-//        cell.textLabel.text = [NSString stringWithFormat:@"Other: %@",msgModel.body];
 //    }
 

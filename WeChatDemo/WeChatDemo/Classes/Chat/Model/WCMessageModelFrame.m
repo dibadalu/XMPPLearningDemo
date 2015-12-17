@@ -27,12 +27,12 @@
     CGFloat padding = 10;  //间距为10
     
     //1.设置时间的frame (不需要隐藏时间)
-    if(messageModel.hiddenTime==NO){
+    if(messageModel.hiddenTime == NO){
         CGFloat timeX = 0;
         CGFloat timeY = 0;
         CGFloat timeW = WCScreenWidth;
         CGFloat timeH = 30;
-        _timeF=CGRectMake(timeX, timeY, timeW, timeH);
+        _timeF = CGRectMake(timeX, timeY, timeW, timeH);
     }
     
     //2.设置头像
@@ -61,18 +61,21 @@
     //如果是自己
     if(messageModel.isCurrentUser){
         contentX = iconX - padding - contentW;
+        
     }else{  //如果是聊天用户
         contentX = CGRectGetMaxX(_headF) + padding;
     }
     _contentF = CGRectMake(contentX, contentY, contentW, contentH);
     
+    
     //单元格的高度
     CGFloat maxIconY = CGRectGetMaxY(_headF);
     CGFloat maxContentY = CGRectGetMaxY(_contentF);
-    _cellHeight = MAX(maxIconY, maxContentY) + 20;
-    
+//    WCLog(@"%f,%f",maxIconY,maxContentY);
+    _cellHeight = MAX(maxIconY, maxContentY) + padding;
     //4.聊天单元view的frame
-    _chatF = CGRectMake(0, 0, WCScreenWidth, _cellHeight );
+    _chatF = CGRectMake(0, 0, WCScreenWidth, _cellHeight);
+    
     
 }
 

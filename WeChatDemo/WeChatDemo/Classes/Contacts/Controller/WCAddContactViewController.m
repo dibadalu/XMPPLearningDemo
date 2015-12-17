@@ -52,7 +52,7 @@
     //2.发送好友添加的请求
     // 添加好友，xmpp叫订阅subscribePresence
     [[WCXMPPTool sharedWCXMPPTool].roster subscribePresenceToUser:jid];
-//    [MBProgressHUD showError:@"添加成功" toView:self.view];
+    [MBProgressHUD showError:@"添加成功" toView:self.view];
     
     return YES;
 }
